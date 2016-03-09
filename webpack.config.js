@@ -23,6 +23,7 @@ var devFlagPlugin = new webpack.DefinePlugin({
 
 var webpackconfig= {
   entry: {
+    //name: path
 	materil: [join(entry_dir,'./entry.jsx')],
   },
   output: {

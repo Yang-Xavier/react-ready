@@ -6,8 +6,8 @@ export default {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: Colors.greenA400,
-    primary2Color: Colors.greenA700,
+    primary1Color: Colors.indigoA400,
+    primary2Color: Colors.indigoA700,
     primary3Color: Colors.grey400,
     accent1Color: Colors.pinkA200,
     accent2Color: Colors.grey100,
@@ -17,7 +17,7 @@ export default {
     canvasColor: Colors.white,
     borderColor: Colors.grey300,
     disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
-    pickerHeaderColor: Colors.greenA400,
+    pickerHeaderColor: Colors.indigoA400,
     clockCircleColor: ColorManipulator.fade(Colors.darkBlack, 0.07),
   },
 }
