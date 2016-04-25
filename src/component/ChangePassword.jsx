@@ -4,8 +4,11 @@ import Card from 'material-ui/lib/card/card'
 import CardTitle from 'material-ui/lib/card/card-title'
 import TextField from 'material-ui/lib/text-field'
 
-import InfoDialog from './InfoDialog.jsx'
-import BetweenButtons from './BetweenButtons.jsx'
+import {BasicCard} from './card/CommonCard.jsx'
+import InfoDialog from './tool/InfoDialog.jsx'
+import {Loading} from './units/Loading.jsx'
+import BetweenButtons from './buttons/BetweenButtons.jsx'
+import {ConfirmCtlTextField, regJudger} from './textfield/InputContrlTextField.jsx' 
 
 import {hashChange, parseParams, uriChange} from './lib/pageFun.js'
 import {Check_username, Check_password} from './lib/inputCheck.js'
@@ -19,89 +22,97 @@ export default class ChangePasswordCard extends Component {
     this.state = {'loading': 0} //1 is loading
 
     this.handleButtonTouchTap = this.handleButtonTouchTap.bind(this)
-    this.handlePasswordOnChange = this.handlePasswordOnChange.bind(this)
-    this.handlePasswordAgainOnChange = this.handlePasswordAgainOnChange.bind(this)
+    this.callbacks = this.callbacks.bind(this)
 
-    this.password = {
+    this.value = {
       isValid: false,
       value: ''
     }
+    this._dialog = {}
+  }
+
+  callbacks(){
+    return {
+      'callback': (value) => {
+        console.log(value)
+        this.value = {
+          'isValid': true,
+          'passwd': value.trim()
+        }
+      },
+      'errCallback': (value) => {
+        this.value = {
+          'isValid': false,
+          'passwd': ''
+        }
+      }
+    }  
   }
 
   handleButtonTouchTap() {
-    if(!this.state.loading && this.password.isValid){
-      this.setState({'loading': 1})
+    console.log(this.value)
+    if(!this.value.isValid) return;
 
-      UserChangePassword(this.password.value, (err, data) => {
-        if(err){
-          this._dialog.Open('Error',err.toString())
-        }else if(data['status']){
-          this._dialog.Open('Error',data['message'])
-        }else{
-          this._password.setValue('')
-          this._password_again.setValue('')
-          this._dialog.Open('Info', 'Congratulation! You have changed your password')
-        }
-
-        this.setState({'loading': 0})
+    this.setState({
+      loading: 1
+    })
+    UserChangePassword(this.value.passwd, (err, data) => {
+      this.setState({
+        loading: 0
       })
-    }
-  }
+      if(err){
+        this._dialog.Open("Error", err.toString())
+        return
+      }
 
-  handlePasswordOnChange(){
-    if(this._password === undefined) return
-
-    let password = this._password.getValue()
-    let check_result = Check_password(password)
-
-    if(! check_result.isValid){
-      this._password.setErrorText(check_result.error)
-      this.password.isValid = false
-    }else{
-      this._password.setErrorText('')
-      this.password.value = password
-      this.handlePasswordAgainOnChange()
-    }
-  }
-
-  handlePasswordAgainOnChange() {
-    if(this._password_again === undefined) return
-    
-    let password = this._password_again.getValue()
-
-    if(password !== this.password.value){
-      this._password_again.setErrorText("Two password is different !")
-      this.password.isValid = false
-    }else{
-      this._password_again.setErrorText('')
-      this.password.isValid = true
-    }
+      if(data['status']){
+        this._dialog.Open("Error", data['message'])
+      }else{
+        uriChange('/ghost/')
+      }
+    })
   }
 
   render() {
     let changePasswordButton =  {'label': 'Ok', 'onTouchTap': this.handleButtonTouchTap, 'type': 1}
-    let backButton = { 'label': 'back', 'onTouchTap': () => {hashChange('')}, 'type': 2}
+    let backButton = { 'label': 'Back', 'onTouchTap': () => {hashChange('')}, 'type': 2}
 
     if(this.state.loading){
       changePasswordButton.disabled = 1
     }
 
+    let BCstyle = {
+      margin: '100px auto',
+      width: '700px',
+      background: 'white'
+    }
+
+    let loading = (
+      <Loading style={{
+        height: 778,
+      }} size={2}/>
+    )
+
+    let confirmCtlTextField = (
+      <ConfirmCtlTextField 
+        floatingLabelText={'New Password'}
+        hintText={"Don't too simple..."}
+        confirmErrString={"Password doesn't match the confirmation"} 
+        errString={'Password should Length of password should be between 6 to 20'}
+        judgeFunc={regJudger(/^[\t \s]*[0-9a-zA-Z_]{6,20}[\t \s]*$/)}
+        {...this.callbacks()}
+      />
+    )
+
+
     return (
-      <Card style={this.props.style}>
+      <BasicCard title={'Change Password'} subtitle={'for data safe'} style={BCstyle}>
         <InfoDialog ref={(c)=>{this._dialog = c}}/>
-        <CardTitle title="Change Password" subtitle="change your password to be new"/>
-        <div style={{padding: "16px", margin: "0 0", width: "100%" }} >
-          <TextField style={{margin: "5px 0"}}
-           floatingLabelText="New Password" type="password" 
-           ref={(c)=>{this._password = c}} onChange={this.handlePasswordOnChange}
-           />
-          <TextField style={{margin: "5px 0"}}
-           floatingLabelText="New Password Again" type="password" 
-           ref={(c)=>{this._password_again = c}} onChange={this.handlePasswordAgainOnChange}
-           />
+        <div style={{padding: "16px", margin: "0 0" , height: 248}} >
+          {this.state.loading ?  loading : confirmCtlTextField}
         </div>
         <BetweenButtons buttons={[changePasswordButton, backButton]} style={{padding: "16px", margin: "0 0"}}/>
-      </Card>
+      </BasicCard>
     )
   }
 }

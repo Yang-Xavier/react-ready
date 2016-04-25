@@ -7,7 +7,8 @@
 
 
 export function CloseWindow() {
-  if(navigator.userAgent.indexOf('Firefox') > 0) {
+  if(navigator.userAgent.indexOf('Firefox') > 0 || 
+     navigator.userAgent.indexOf('Chrome') > 0) {
     window.location.href = 'about:blank'
   }else{
     window.close()
@@ -32,8 +33,8 @@ export function uriChange(new_uri){
  */
 export function windowSize(){
   return {
-    width: window.screen.availWidth,
-    height: window.screen.availHeight
+    width: window.innerWidth,
+    height: window.innerHeight
   }
 }
 

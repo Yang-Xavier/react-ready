@@ -6,8 +6,9 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconButton from 'material-ui/lib/icon-button'
 import FontIcon from 'material-ui/lib/font-icon'
 
-import App from './component/App.jsx'
-import HeadMenuListButton from './component/HeadMenuListButton.jsx'
+import App from './component/nav/App.jsx'
+import {HeadMenuListButton} from './component/nav/MenuList.jsx'
+import {LenCtlTextField} from './component/textfield/InputContrlTextField.jsx'
 
 injectTapEventPlugin()
 
@@ -22,7 +23,11 @@ let menuList = [
 
 // a glue fucntion to glue django template and React.
 window.ReactInit = function glue() {
-  ReactDOM.render(<App style={{width: 100}} menuListButton={<HeadMenuListButton itemList={menuList}/>} />, 
+  ReactDOM.render(
+    <App style={{width: 100}} menuListButton={<HeadMenuListButton itemList={menuList}/>} >
+      <LenCtlTextField hintText="Hint Text" floatingLabelText="Floating Label Text" minl={6} maxl={10}
+        errString="Length of field text must between 6 and 10!"/>
+    </App>, 
                   document.getElementById('root'))
   //ReactDOM.render(<Main />, document.getElementById("container"));
 }

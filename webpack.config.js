@@ -6,7 +6,6 @@
       babel-loader babel-core babel-preset-es2015\
       css-loader style-loader \
       url-loader file-loader \
-      open-browser-webpack-plugin \
       react react-dom babel-preset-react \
 
 */
@@ -24,11 +23,15 @@ var devFlagPlugin = new webpack.DefinePlugin({
 var webpackconfig= {
   entry: {
     //name: path
+    rootPage: [join(entry_dir, './entry_root.jsx')],
+    signPage: [join(entry_dir, './entry_index.jsx')],
+    loginPage: [join(entry_dir, './entry_login.jsx')],
+    errorPage: [join(entry_dir, './entry_error.jsx')],
 	materil: [join(entry_dir,'./entry.jsx')],
   },
   output: {
     path: join(__dirname, './dist'),
-    publicPath: '/static/', //uri while web set run
+    publicPath: '/static/dist/', //uri while web set run
 	filename: '[name].js'
   },
   module: {
@@ -70,7 +73,16 @@ var webpackconfig= {
 	  }
     }),
 	devFlagPlugin
-  ]
+  ],
+  devServer: {
+    hot: true,
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    }
+  }
 };
 
 

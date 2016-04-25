@@ -4,8 +4,8 @@ import Card from 'material-ui/lib/card/card'
 import CardTitle from 'material-ui/lib/card/card-title'
 import TextField from 'material-ui/lib/text-field'
 
-import InfoDialog from './InfoDialog.jsx'
-import BetweenButtons from './BetweenButtons.jsx'
+import InfoDialog from './tool/InfoDialog.jsx'
+import BetweenButtons from './buttons/BetweenButtons.jsx'
 
 import {hashChange, parseParams, uriChange} from './lib/pageFun.js'
 import {Check_username, Check_password} from './lib/inputCheck.js'
@@ -18,7 +18,7 @@ export default class LoginCard extends Component {
     super(props)
     this.state = {'loading': 0} //1 is loading
 
-    this.handleButtonTouchTap = this.handleButtonTouchTap.bind(this)
+    this.handleButtonTouchEnd = this.handleButtonTouchEnd.bind(this)
     this.handleUsernameOnChange = this.handleUsernameOnChange.bind(this)
     this.handlePasswordOnChange = this.handlePasswordOnChange.bind(this)
 
@@ -32,7 +32,7 @@ export default class LoginCard extends Component {
     }
   }
 
-  handleButtonTouchTap() {
+  handleButtonTouchEnd() {
     if(!this.state.loading && this.username.isValid && this.password.isValid){
 
       this.setState({'loading': 1})
@@ -90,8 +90,8 @@ export default class LoginCard extends Component {
   }
 
   render() {
-    let loginButton = { 'label': 'Login', 'onTouchTap': this.handleButtonTouchTap, 'type': 1}
-    let signUpButton =  {'label': 'To Sign Up', 'onTouchTap': () => {hashChange('signup')}, 'type': 2}
+    let loginButton = { 'label': 'Login', 'onTouchEnd': this.handleButtonTouchEnd, 'type': 1}
+    let signUpButton =  {'label': 'To Sign Up', 'onTouchEnd': () => {hashChange('signup')}, 'type': 2}
     let loading
 
     if(this.state.loading){

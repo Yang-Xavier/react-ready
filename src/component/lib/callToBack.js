@@ -4,6 +4,7 @@
  * Email: mephistommm@gmail.com
  * Update: 05.01.2016
  */
+import {FilterKeyMerge} from './util.js'
 
 let request = require('superagent')
 
@@ -30,6 +31,22 @@ export function getCookie(name) {
     return cookieValue;
 }
 
+/* root login function 
+ * 
+ * @param password String 
+ * @callback Func(err, data)
+ *
+ */
+export function RootLogin(password, callback){
+
+  request
+    .post('/api/login/')
+    .send({'username': 'root', 'password': password })
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      callback(err, res.body)
+    })
+}
 
 /* login function 
  * 
@@ -42,7 +59,7 @@ export function UserLogin(username, password, callback){
   let csrftoken = getCookie('csrftoken')
 
   request
-    .post('/user/api/login/')
+    .post('/api/login/')
     .send({ 'username': username, 'password': password })
     .set('X-CSRFToken',csrftoken)
     .set('Accept', 'application/json')
@@ -76,11 +93,9 @@ export function UserSignUp(username, password, callback){
  * @callback Func(err, data)
  */
 export function UserLogout(callback){
-  let csrftoken = getCookie('csrftoken')
 
   request
-    .delete('/user/api/login/')
-    .set('X-CSRFToken',csrftoken)
+    .delete('/api/login/')
     .set('Accept', 'application/json')
     .end((err, res) => {
       callback(err, res.body)
@@ -94,12 +109,10 @@ export function UserLogout(callback){
  * @callback Func(err, data)
  */
 export function UserChangePassword(password, callback){
-  let csrftoken = getCookie('csrftoken')
 
   request
-    .patch('/user/api/signup/')
+    .put('/api/root/')
     .send({ 'password': password })
-    .set('X-CSRFToken',csrftoken)
     .set('Accept', 'application/json')
     .end((err, res) => {
       callback(err, res.body)
@@ -121,62 +134,94 @@ function createQueryFactory(){
   }
 }
 
-/* a function to get students
- * 
- * @param Object {'querykey': '..'...}
+
+/* GET request with querys
+ *
+ * @param url String the url to request
+ * @param querys Object {'page':string, 'items':string, 'type': default 2}
  * @callback Func(err, data)
  */
-export function QueryStudents(params, callback){
-  let url = '/scrl/api/students/'
+export function GetWithParams(url,querys,callback){
   let queryFactory = createQueryFactory()
-  let query = ''
+  let queryString = ''
 
-  if(params['querykey'] && params['queryvalue'] !== undefined){
-    queryFactory('querykey', params['querykey'])
-    query = queryFactory('queryvalue', params['queryvalue'])
+  for(let key in querys){
+    queryString = queryFactory(key, querys[key])
   }
 
-  if(params['items']){
-    query = queryFactory('items', params['items'])
+  if(queryString.length > 0){
+    url += queryString  
   }
+
+  request
+    .get(url)
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      callback(err, res.body)
+    })
+}
+
+/* post participator info
+ *
+ * @param data Object participator data
+ * @callback Func(err, data)
+ */
+export function PostParticipator(data,callback){
+  let url = '/api/participator/'
+  var formData = new FormData();
   
-  if(params['page']){
-    query = queryFactory('page', params['page'])
-  }
-
-  if(query.length > 0){
-    url += query
+  for(let key in data){
+    if(data[key]) formData.append(key, data[key])
   }
 
   request
-    .get(url)
+    .post(url)
+    .send(formData)
     .set('Accept', 'application/json')
     .end((err, res) => {
       callback(err, res.body)
     })
 }
 
-/* get all courses
+/* delete some participators 
  *
- * @param params Object {'page':string, 'items':string,}
+ * @param datas Array<String> participators' emails if delete all , datas === all
  * @callback Func(err, data)
  */
-export function GetCourses(params,callback){
-  let url = '/scrl/api/courses/'
-  let queryFactory = createQueryFactory()
-  let query = ''
-
-  if(params['items']){
-    query = queryFactory('items', params['items'])
-  }
+export function DeleteParticipators(datas, callback) {
+  let url = '/api/participators/'
   
-  if(params['page']){
-    query = queryFactory('page', params['page'])
-  }
+  request
+    .delete(url)
+    .send({email: datas})
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      callback(err, res.body)
+    })
+}
 
-  if(query.length > 0){
-    url += query
-  }
+/* send emails to participators 
+ *
+ * @param emails Array<String> participators' emails 
+ * @param content String main content of email
+ * @callback Func(err, data)
+ */
+export function SendEmail(emails, content, callback) {
+  let url = '/api/email/participators/'
+
+  request
+    .post(url)
+    .send({email: emails, content: content})
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      callback(err, res.body)
+    })
+  
+}
+
+
+export function GetParticipatorsCSV(callback){
+  let url = '/api/participators/download/'
 
   request
     .get(url)
@@ -186,34 +231,26 @@ export function GetCourses(params,callback){
     })
 }
 
-/* get a student by student_num
- *
- * @param student_num String 
- * @callback Func(err, data)
- */
-export function GetAStudent(student_num, callback){
-  let url = '/scrl/api/student/' + student_num + '/'
+export function GetSwitch(callback) {
+  let url = '/api/switch/signup/'
 
   request
     .get(url)
     .set('Accept', 'application/json')
-    .end((err, res) => {
+    .end( (err, res) => {
       callback(err, res.body)
     })
 }
 
-/* get a course by course_num
- *
- * @param course_num String
- * @callback Func(err, data)
- */
-export function GetACourse(course_num, callback){
-  let url = '/scrl/api/course/' + course_num + '/'
+
+export function PatchSwitch(status, callback) {
+  let url = '/api/switch/signup'
 
   request
-    .get(url)
+    .patch(url)
+    .send({'toggle': status})
     .set('Accept', 'application/json')
-    .end((err, res) => {
+    .end( (err, res) => {
       callback(err, res.body)
     })
 }
