@@ -14,6 +14,9 @@ the dir which output file place in
 
 the dir which component files place in
 
+####TODO:
+* change tester!
+
 ###License
 
 [MIT](https://github.com/MephistoMMM/react-ready/blob/master/LICENSE)
