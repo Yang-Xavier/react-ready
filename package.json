@@ -33,6 +33,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "eslintConfig": {
+    "eslint_url": "http://eslint.org/docs/",
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module",
@@ -44,7 +45,9 @@
     "extends": "eslint:recommended",
     "rules":{
       "semi": [1, "never"],
-      "quotes": [1, "double"]
+      "quotes": [1, "double"], 
+      "no-unused-vars": ["off"],
+      "no-console": ["error", { "allow": ["warn", "error", "log"] }]
     },
     "env": {
       "mocha": true,
