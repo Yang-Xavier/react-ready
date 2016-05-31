@@ -1,49 +1,47 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import Card from 'material-ui/lib/card/card'
-import CardTitle from 'material-ui/lib/card/card-title'
-import TextField from 'material-ui/lib/text-field'
+import {Card, CardTitle} from "material-ui/Card"
+import TextField from "material-ui/TextField"
 
-import {BasicCard} from './card/CommonCard.jsx'
-import InfoDialog from './tool/InfoDialog.jsx'
-import {Loading} from './units/Loading.jsx'
-import BetweenButtons from './buttons/BetweenButtons.jsx'
-import {ConfirmCtlTextField, regJudger} from './textfield/InputContrlTextField.jsx' 
+import {BasicCard} from "./card/CommonCard.jsx"
+import InfoDialog from "./tool/InfoDialog.jsx"
+import {Loading} from "./units/Loading.jsx"
+import BetweenButtons from "./buttons/BetweenButtons.jsx"
+import {ConfirmCtlTextField, regJudger} from "./textfield/InputContrlTextField.jsx" 
 
-import {hashChange, parseParams, uriChange} from './lib/pageFun.js'
-import {Check_username, Check_password} from './lib/inputCheck.js'
-import {UserChangePassword} from './lib/callToBack.js'
+import {hashChange, parseParams, uriChange} from "./lib/pageFun.js"
+import {Check_username, Check_password} from "./lib/inputCheck.js"
+import {UserChangePassword} from "./lib/callToBack.js"
 
 
 export default class ChangePasswordCard extends Component {
   
   constructor(props) {
     super(props)
-    this.state = {'loading': 0} //1 is loading
+    this.state = {"loading": 0} //1 is loading
 
     this.handleButtonTouchTap = this.handleButtonTouchTap.bind(this)
     this.callbacks = this.callbacks.bind(this)
 
     this.value = {
       isValid: false,
-      value: ''
+      value: ""
     }
     this._dialog = {}
   }
 
   callbacks(){
     return {
-      'callback': (value) => {
-        console.log(value)
+      "callback": (value) => {
         this.value = {
-          'isValid': true,
-          'passwd': value.trim()
+          "isValid": true,
+          "passwd": value.trim()
         }
       },
-      'errCallback': (value) => {
+      "errCallback": () => {
         this.value = {
-          'isValid': false,
-          'passwd': ''
+          "isValid": false,
+          "passwd": ""
         }
       }
     }  
@@ -65,40 +63,40 @@ export default class ChangePasswordCard extends Component {
         return
       }
 
-      if(data['status']){
-        this._dialog.Open("Error", data['message'])
+      if(data["status"]){
+        this._dialog.Open("Error", data["message"])
       }else{
-        uriChange('/ghost/')
+        uriChange("/ghost/")
       }
     })
   }
 
   render() {
-    let changePasswordButton =  {'label': 'Ok', 'onTouchTap': this.handleButtonTouchTap, 'type': 1}
-    let backButton = { 'label': 'Back', 'onTouchTap': () => {hashChange('')}, 'type': 2}
+    let changePasswordButton =  {"label": "Ok", "onTouchTap": this.handleButtonTouchTap, "type": 1}
+    let backButton = { "label": "Back", "onTouchTap": () => {hashChange("")}, "type": 2}
 
     if(this.state.loading){
       changePasswordButton.disabled = 1
     }
 
     let BCstyle = {
-      margin: '100px auto',
-      width: '700px',
-      background: 'white'
+      margin: "100px auto",
+      width: "700px",
+      background: "white"
     }
 
     let loading = (
       <Loading style={{
-        height: 778,
+        height: 778
       }} size={2}/>
     )
 
     let confirmCtlTextField = (
       <ConfirmCtlTextField 
-        floatingLabelText={'New Password'}
+        floatingLabelText={"New Password"}
         hintText={"Don't too simple..."}
         confirmErrString={"Password doesn't match the confirmation"} 
-        errString={'Password should Length of password should be between 6 to 20'}
+        errString={"Password should Length of password should be between 6 to 20"}
         judgeFunc={regJudger(/^[\t \s]*[0-9a-zA-Z_]{6,20}[\t \s]*$/)}
         {...this.callbacks()}
       />
@@ -106,7 +104,7 @@ export default class ChangePasswordCard extends Component {
 
 
     return (
-      <BasicCard title={'Change Password'} subtitle={'for data safe'} style={BCstyle}>
+      <BasicCard title={"Change Password"} subtitle={"for data safe"} style={BCstyle}>
         <InfoDialog ref={(c)=>{this._dialog = c}}/>
         <div style={{padding: "16px", margin: "0 0" , height: 248}} >
           {this.state.loading ?  loading : confirmCtlTextField}

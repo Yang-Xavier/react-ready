@@ -1,35 +1,35 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import { Router, Route, IndexRoute, Redirect} from 'react-router'
+import React from "react"
+import ReactDOM from "react-dom"
+import injectTapEventPlugin from "react-tap-event-plugin"
+import { Router, Route, IndexRoute, Redirect} from "react-router"
 
-import App from './App.jsx'
-import HeadMenuListButton from './HeadMenuListButton.jsx'
-import HelpCard from './Help.jsx'
-import WelcomeString from './Welcome.jsx'
-import ChangePasswordCard from './ChangePassword.jsx'
-import {CoursesCard, CourseCard} from './CoursesCard.jsx'
-import {StudentsCard, StudentCard} from './StudentsCard.jsx'
+import App from "./App.jsx"
+import HeadMenuListButton from "./HeadMenuListButton.jsx"
+import HelpCard from "./Help.jsx"
+import WelcomeString from "./Welcome.jsx"
+import ChangePasswordCard from "./ChangePassword.jsx"
+import {CoursesCard, CourseCard} from "./CoursesCard.jsx"
+import {StudentsCard, StudentCard} from "./StudentsCard.jsx"
 
-import {UserLogout} from './lib/callToBack.js'
-import {uriChange, windowSize} from './lib/pageFun.js'
+import {UserLogout} from "./lib/callToBack.js"
+import {uriChange, windowSize} from "./lib/pageFun.js"
 
 injectTapEventPlugin()
 
 function logout(){
   UserLogout(()=>{
-    uriChange('/')
+    uriChange("/")
   })
 }
 
 let menuList = [
-  {'pkey': 'students', 'hash': 'students'},
-  {'pkey': 'courses', 'hash': 'courses'},
-  {'pkey': '-'},
-  {'pkey': 'change password', 'hash': 'change_password'},
-  {'pkey': 'logout', 'click': logout},
-  {'pkey': '-'},
-  {'pkey':'Help', 'hash': 'help'},
+  {"pkey": "students", "hash": "students"},
+  {"pkey": "courses", "hash": "courses"},
+  {"pkey": "-"},
+  {"pkey": "change password", "hash": "change_password"},
+  {"pkey": "logout", "click": logout},
+  {"pkey": "-"},
+  {"pkey":"Help", "hash": "help"}
 ]
 
 let window_size = windowSize()
@@ -37,7 +37,7 @@ let window_size = windowSize()
 let AccountCardStyle = {
   width: 500,
   height: "100%",
-  minHeight: '400px',
+  minHeight: "400px",
   margin: "50px auto"
 }
 
@@ -58,9 +58,9 @@ if(window_size.width <800){
 
 // a glue fucntion to glue django template and React.
 window.ReactInit = function glue() {
-  let __App = (props) => <App {...props} title='Student Info System' menuListButton={<HeadMenuListButton itemList={menuList}/>} />
+  let __App = (props) => <App {...props} title="Student Info System" menuListButton={<HeadMenuListButton itemList={menuList}/>} />
   let __HelpCard = (props) => <HelpCard {...props} style={AccountCardStyle} />
-  let __WelcomeString = (props) => <WelcomeString {...props} scale={3} webSiteName='Student Info System' />
+  let __WelcomeString = (props) => <WelcomeString {...props} scale={3} webSiteName="Student Info System" />
   let __ChangePasswordCard = (props) => <ChangePasswordCard {...props} style={AccountCardStyle} />
   let __CoursesCard = (props) => <CoursesCard {...props} style={TableCardStyle}/>
   let __CourseCard = (props) => <CourseCard {...props} style={TableCardStyle}/>
@@ -79,6 +79,6 @@ window.ReactInit = function glue() {
         <Route path="help" component={__HelpCard} />
       </Route>
     </Router>,
-    document.getElementById('root'))
+    document.getElementById("root"))
 }
 

@@ -1,19 +1,19 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import FontIcon from 'material-ui/lib/font-icon'
-import IconMenu from 'material-ui/lib/menus/icon-menu'
-import MenuItem from 'material-ui/lib/menus/menu-item'
-import Divider from 'material-ui/lib/divider'
-import IconButton from 'material-ui/lib/icon-button'
-import Colors from 'material-ui/lib/styles/colors'
+import FontIcon from "material-ui/FontIcon"
+import IconMenu from "material-ui/IconMenu"
+import MenuItem from "material-ui/MenuItem"
+import Divider from "material-ui/Divider"
+import IconButton from "material-ui/IconButton"
+import {fullWhite} from "material-ui/styles/colors"
 
-import {CloseWindow, hashChange} from '../lib/pageFun.js'
+import {CloseWindow, hashChange} from "../lib/pageFun.js"
 
 
 /* This function create the menu list according to the itemList
  *
  * items : {pkey: string , hash: string} 
- *        or {pkey: '-'} 
+ *        or {pkey: "-"} 
  *        or {pkey: string , hash: string, click: func} 
  * 
  * @param itemList Array<object> the array of item
@@ -27,21 +27,21 @@ export default function CreateMenuList(itemList, itemClickCb=()=>{}){
       let componentName = MenuItem
       let componentProp = {}
 
-      if(elf.pkey === '-'){
+      if(elf.pkey === "-"){
         componentName = Divider
       }else{
-        componentProp['primaryText'] = elf['pkey']
+        componentProp["primaryText"] = elf["pkey"]
 
-        if(elf['click'] !== undefined && typeof elf['click'] === 'function'){
-          componentProp['onTouchTap'] = () => {elf['click'](); itemClickCb()} 
+        if(elf["click"] !== undefined && typeof elf["click"] === "function"){
+          componentProp["onTouchTap"] = () => {elf["click"](); itemClickCb()} 
         }else{
-          componentProp['onTouchTap'] = () => {hashChange(elf['hash']); itemClickCb()} 
+          componentProp["onTouchTap"] = () => {hashChange(elf["hash"]); itemClickCb()} 
         }
       }
 
       return React.createElement(componentName, componentProp)
     })
-    menuList.push(<MenuItem primaryText='Close' onTouchTap={() => CloseWindow()} />)
+    menuList.push(<MenuItem primaryText="Close" onTouchTap={() => CloseWindow()} />)
 
     return menuList
 }
@@ -56,8 +56,8 @@ export class HeadMenuListButton extends Component {
   render() {
     return (
       <IconMenu iconButtonElement={
-        <IconButton tooltip='menus list' >
-          <FontIcon className='material-icons' color={Colors.fullWhite} >more_vert</FontIcon>
+        <IconButton tooltip="menus list" >
+          <FontIcon className="material-icons" color={fullWhite} >more_vert</FontIcon>
         </IconButton> } >
         {CreateMenuList(this.props.itemList)}
       </IconMenu>
@@ -65,6 +65,6 @@ export class HeadMenuListButton extends Component {
   }
 }
 HeadMenuListButton.propTypes = {
-  itemList: React.PropTypes.array.isRequired,
+  itemList: React.PropTypes.array.isRequired
 }
 

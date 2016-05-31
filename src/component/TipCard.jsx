@@ -1,34 +1,34 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import Colors from 'material-ui/lib/styles/colors'
-import Toggle from 'material-ui/lib/toggle'
+import {amberA400, pink500} from "material-ui/styles/colors"
+import Toggle from "material-ui/Toggle"
 
-import {BasicCard} from './card/CommonCard.jsx'
-import InfoDialog from './tool/InfoDialog.jsx'
-import BetweenButtons from './buttons/BetweenButtons.jsx'
-import {RegCtlTextField} from './textfield/InputContrlTextField.jsx'
+import {BasicCard} from "./card/CommonCard.jsx"
+import InfoDialog from "./tool/InfoDialog.jsx"
+import BetweenButtons from "./buttons/BetweenButtons.jsx"
+import {RegCtlTextField} from "./textfield/InputContrlTextField.jsx"
 
-import {MergeObjects} from './lib/util.js'
-import {hashChange} from './lib/pageFun.js'
-import {DeleteParticipators, SendEmail,GetSwitch,PatchSwitch} from './lib/callToBack.js'
+import {MergeObjects} from "./lib/util.js"
+import {hashChange} from "./lib/pageFun.js"
+import {DeleteParticipators, SendEmail,GetSwitch,PatchSwitch} from "./lib/callToBack.js"
 
 export class SToggleCard extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      'isLoading': true,
-      'toggle': false
+      "isLoading": true,
+      "toggle": false
     }
   
     this.BCstyle = {
-      margin: '150px auto',
-      width: '700px',
-      background: 'white'
+      margin: "150px auto",
+      width: "700px",
+      background: "white"
     }
     this.toggleStyle = {
       maxWidth: 250,
-      margin: '20px auto'
+      margin: "20px auto"
     }
 
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -42,26 +42,26 @@ export class SToggleCard extends Component {
       })
 
       if(err){
-        this._dialog.Open('Error', err.toString())
+        this._dialog.Open("Error", err.toString())
         return 
       }
 
-      if(body['status'] === 1){
-        this._dialog.Open('Error', body['message'])
+      if(body["status"] === 1){
+        this._dialog.Open("Error", body["message"])
       }else{
         this.setState({
-          toggle: body['message']
+          toggle: body["message"]
         })
       }
     })
   }
 
-  handleToggle(event){
+  handleToggle(){
     let toggle = !this.state.toggle
 
     this.setState({
-      'isLoading': true,
-      'toggle': toggle
+      "isLoading": true,
+      "toggle": toggle
     })
 
     PatchSwitch(toggle, (err, body) => {
@@ -71,19 +71,19 @@ export class SToggleCard extends Component {
           toggle: !toggle
         })
 
-        this._dialog.Open('Error', err.toString())
+        this._dialog.Open("Error", err.toString())
         return 
       }
 
-      if(body['status'] === 1){
+      if(body["status"] === 1){
         this.setState({
           isLoading: false,
           toggle: !toggle
         })
-        this._dialog.Open('Error', body['message'])
+        this._dialog.Open("Error", body["message"])
       }else{
         this.setState({
-          isLoading: false,
+          isLoading: false
         })
       }
     })
@@ -94,9 +94,9 @@ export class SToggleCard extends Component {
     let BCstyle = MergeObjects(MergeObjects({}, this.BCstyle), this.props.style)
 
     return (
-      <BasicCard title={'Toggle'} subtitle={'open or close sign up'} style={BCstyle} >
+      <BasicCard title={"Toggle"} subtitle={"open or close sign up"} style={BCstyle} >
         <InfoDialog ref={(c)=>{this._dialog = c}} />
-        <div style={{padding: "16px", margin: "0 0" ,  textAlign: 'center'}} >
+        <div style={{padding: "16px", margin: "0 0" ,  textAlign: "center"}} >
         <Toggle
           label="Sign Up Toggle"
           disabled={this.state.isLoading}
@@ -120,7 +120,7 @@ export  class ClearCard extends Component {
   
   constructor(props) {
     super(props)
-    this.state = {'isLoading': false} //1 is isLoading
+    this.state = {"isLoading": false} //1 is isLoading
 
     this._dialog = {}
     
@@ -128,45 +128,45 @@ export  class ClearCard extends Component {
   }
 
   handleDelete(){
-    DeleteParticipators('all',(err, body) =>{
+    DeleteParticipators("all",(err, body) =>{
       this.setState({isLoading: false})
       if(err){
-        this._dialog.Open('Error', err.toString())
+        this._dialog.Open("Error", err.toString())
         return 
       }
 
-      if(body['status'] === 1){
-        this._dialog.Open('Error', body['message'])
+      if(body["status"] === 1){
+        this._dialog.Open("Error", body["message"])
       }else{
-        hashChange('/')
+        hashChange("/")
       }
     })
   }
 
   render() {
     let BCstyle = {
-      margin: '150px auto',
-      width: '700px',
-      background: 'white'
+      margin: "150px auto",
+      width: "700px",
+      background: "white"
     }
 
     let buttons = [
-      {'label': 'Delete', 
-        'onTouchTap': this.handleDelete,
-        'disabled': this.state.isLoading,
-        'type': 1}, 
-      {'label': 'Back',
-       'onTouchTap':() => hashChange('/'),
-        'disabled': this.state.isLoading,
-        'type': 2}
+      {"label": "Delete", 
+        "onTouchTap": this.handleDelete,
+        "disabled": this.state.isLoading,
+        "type": 1}, 
+      {"label": "Back",
+       "onTouchTap":() => hashChange("/"),
+        "disabled": this.state.isLoading,
+        "type": 2}
     ]
 
     BCstyle = MergeObjects(MergeObjects({}, BCstyle), this.props.style)
 
     return (
-      <BasicCard title={'Clear'} subtitle={'delete all participators'} style={BCstyle} >
+      <BasicCard title={"Clear"} subtitle={"delete all participators"} style={BCstyle} >
         <InfoDialog ref={(c)=>{this._dialog = c}} />
-        <div style={{padding: "16px", margin: "0 0" , color: Colors.pink500, textAlign: 'center'}} >
+        <div style={{padding: "16px", margin: "0 0" , color: pink500, textAlign: "center"}} >
           <p>Clear Operation Will Delete All Participator Datas!</p>
           <p>Do you really want to do so?</p>
         </div>
@@ -176,7 +176,7 @@ export  class ClearCard extends Component {
   }
 }
 ClearCard.propTypes = {
-  style: React.PropTypes.object,
+  style: React.PropTypes.object
 }
 ClearCard.defaultProps = {
   style: {}
@@ -186,7 +186,7 @@ export class SendAllCard extends Component {
 
   constructor(props){
     super(props)
-    this.state = {'isLoading': false} //1 is isLoading
+    this.state = {"isLoading": false} //1 is isLoading
 
     this._dialog = {}
     
@@ -204,33 +204,33 @@ export class SendAllCard extends Component {
     }
 
     this.setState({isLoading: true})
-    SendEmail('all', this.content.value,(err, body) =>{
+    SendEmail("all", this.content.value,(err, body) =>{
       this.setState({isLoading: false})
       if(err){
-        this._dialog.Open('Error', err.toString())
+        this._dialog.Open("Error", err.toString())
         return 
       }
 
-      if(body['status'] === 1){
-        this._dialog.Open('Error', body['message'])
+      if(body["status"] === 1){
+        this._dialog.Open("Error", body["message"])
       }else{
-        this._dialog.Open('Ok', "Success To Send Emails To All Participators.")
+        this._dialog.Open("Ok", "Success To Send Emails To All Participators.")
       }
     })
   }
 
   callbacks(){
     return {
-      'callback': (value) => {
+      "callback": (value) => {
         this.content = {
-          'isValid': true,
-          'value': value
+          "isValid": true,
+          "value": value
         }
       },
-      'errCallback': (value) => {
+      "errCallback": () => {
         this.content = {
-          'isValid': false,
-          'value': ''
+          "isValid": false,
+          "value": ""
         }
       }
     }  
@@ -239,28 +239,28 @@ export class SendAllCard extends Component {
   render() {
 
     let BCstyle = {
-      margin: '150px auto',
-      width: '700px',
-      background: 'white'
+      margin: "150px auto",
+      width: "700px",
+      background: "white"
     }
 
     let buttons = [
-      {'label': 'Send', 
-        'onTouchTap': this.handleSend,
-        'disabled': this.state.isLoading,
-        'type': 1}, 
-      {'label': 'Back',
-       'onTouchTap':() => hashChange('/'),
-        'disabled': this.state.isLoading,
-        'type': 2}
+      {"label": "Send", 
+        "onTouchTap": this.handleSend,
+        "disabled": this.state.isLoading,
+        "type": 1}, 
+      {"label": "Back",
+       "onTouchTap":() => hashChange("/"),
+        "disabled": this.state.isLoading,
+        "type": 2}
     ]
 
     BCstyle = MergeObjects(MergeObjects({}, BCstyle), this.props.style)
 
     return (
-      <BasicCard title={'Send Email All'} subtitle={'send emails to all participators'} style={BCstyle} >
+      <BasicCard title={"Send Email All"} subtitle={"send emails to all participators"} style={BCstyle} >
         <InfoDialog ref={(c)=>{this._dialog = c}} />
-        <div style={{padding: "16px",color: Colors.amberA400, fontWeight: 900, margin:"0"}} >
+        <div style={{padding: "16px",color: amberA400, fontWeight: 900, margin:"0"}} >
           <p style={{margin:"0"}}>Please input the main content of email: </p>
           <RegCtlTextField 
             fullWidth={true}

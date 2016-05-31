@@ -1,6 +1,6 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import {MergeObjects} from '../lib/util.js'
+import {MergeObjects} from "../lib/util.js"
 
 
 /* this frame means one textfield and one button (inline)
@@ -10,8 +10,8 @@ import {MergeObjects} from '../lib/util.js'
  * @prop textseat Number 0 means left , 1 means right
  * @prop textelement RectElement 
  * @prop buttonelement RectElement
- * @prop textSpanStyle Object the style of textelement's span
- * @prop buttonSpanStyle Object the style of buttonelement's span
+ * @prop textSpanStyle Object the style of textelement"s span
+ * @prop buttonSpanStyle Object the style of buttonelement"s span
  * @prop style Object the object of frame
  */
 export class InlineTBFrame extends Component {
@@ -22,7 +22,7 @@ export class InlineTBFrame extends Component {
     this.divStyle = {
       display: "flex",
       justifyContent: "space-between",
-      alignItems: 'center',
+      alignItems: "center"
     }
   }
 
@@ -68,7 +68,7 @@ InlineTBFrame.propTypes = {
 }
 InlineTBFrame.defaultProps = {
   textseat: 0,
-  textSpanStyle: {height: '100%', margin:'0 10px'},
-  buttonSpanStyle: {height: '100%',  margin: '0 10px'},
+  textSpanStyle: {height: "100%", margin:"0 10px"},
+  buttonSpanStyle: {height: "100%",  margin: "0 10px"},
   style: {}
 }

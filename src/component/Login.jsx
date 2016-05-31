@@ -1,22 +1,21 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import Card from 'material-ui/lib/card/card'
-import CardTitle from 'material-ui/lib/card/card-title'
-import TextField from 'material-ui/lib/text-field'
+import {Card, CardTitle} from "material-ui/Card"
+import TextField from "material-ui/TextField"
 
-import InfoDialog from './tool/InfoDialog.jsx'
-import BetweenButtons from './buttons/BetweenButtons.jsx'
+import InfoDialog from "./tool/InfoDialog.jsx"
+import BetweenButtons from "./buttons/BetweenButtons.jsx"
 
-import {hashChange, parseParams, uriChange} from './lib/pageFun.js'
-import {Check_username, Check_password} from './lib/inputCheck.js'
-import {UserLogin} from './lib/callToBack.js'
+import {hashChange, parseParams, uriChange} from "./lib/pageFun.js"
+import {Check_username, Check_password} from "./lib/inputCheck.js"
+import {UserLogin} from "./lib/callToBack.js"
 
 
 export default class LoginCard extends Component {
   
   constructor(props) {
     super(props)
-    this.state = {'loading': 0} //1 is loading
+    this.state = {"loading": 0} //1 is loading
 
     this.handleButtonTouchEnd = this.handleButtonTouchEnd.bind(this)
     this.handleUsernameOnChange = this.handleUsernameOnChange.bind(this)
@@ -24,35 +23,35 @@ export default class LoginCard extends Component {
 
     this.username = {
       isValid: false,
-      value: '',
+      value: ""
     }
     this.password = {
       isValid: false,
-      value: ''
+      value: ""
     }
   }
 
   handleButtonTouchEnd() {
     if(!this.state.loading && this.username.isValid && this.password.isValid){
 
-      this.setState({'loading': 1})
+      this.setState({"loading": 1})
 
       UserLogin(this.username.value, this.password.value, (err, data) => {
         if(err){
-          this._dialog.Open('Error',err.toString())
-        }else if(data['status']){
-          this._dialog.Open('Error',data['message'])
+          this._dialog.Open("Error",err.toString())
+        }else if(data["status"]){
+          this._dialog.Open("Error",data["message"])
         }else{
           let params = parseParams(window.location.search)
 
           if(params.next === undefined){
-            uriChange('/')
+            uriChange("/")
           }else{
             uriChange(params.next)
           }
         }
 
-        this.setState({'loading': 0})
+        this.setState({"loading": 0})
       })
     }
   }
@@ -67,7 +66,7 @@ export default class LoginCard extends Component {
       this._username.setErrorText(check_result.error)
       this.username.isValid = false
     }else{
-      this._username.setErrorText('')
+      this._username.setErrorText("")
       this.username.isValid = true
       this.username.value = username
     }
@@ -83,15 +82,15 @@ export default class LoginCard extends Component {
       this._password.setErrorText(check_result.error)
       this.password.isValid = false
     }else{
-      this._password.setErrorText('')
+      this._password.setErrorText("")
       this.password.isValid = true
       this.password.value = password
     }
   }
 
   render() {
-    let loginButton = { 'label': 'Login', 'onTouchEnd': this.handleButtonTouchEnd, 'type': 1}
-    let signUpButton =  {'label': 'To Sign Up', 'onTouchEnd': () => {hashChange('signup')}, 'type': 2}
+    let loginButton = { "label": "Login", "onTouchEnd": this.handleButtonTouchEnd, "type": 1}
+    let signUpButton =  {"label": "To Sign Up", "onTouchEnd": () => {hashChange("signup")}, "type": 2}
     let loading
 
     if(this.state.loading){

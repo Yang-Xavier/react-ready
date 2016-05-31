@@ -1,6 +1,6 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import {MergeObjects} from '../lib/util.js'
+import {MergeObjects} from "../lib/util.js"
 
 /* show inside plane string
  *
@@ -10,8 +10,8 @@ import {MergeObjects} from '../lib/util.js'
 export let InsidePlaneString = (props) => {
   
   return (<PlaneString {...props} textStyle={{
-      color: '#dcdcdc',
-      textShadow: '1px 1px 0 #eee'
+      color: "#dcdcdc",
+      textShadow: "1px 1px 0 #eee"
     }} />)
 }
 
@@ -27,9 +27,9 @@ export default class PlaneString extends Component {
     super(props)
 
     this.defaultTextStyle = {
-      textAlign: 'center',
+      textAlign: "center",
       fontWeight: 600,
-      fontSize: 12,
+      fontSize: 12
     }
   }
 
@@ -38,14 +38,14 @@ export default class PlaneString extends Component {
     let ts = {}
     MergeObjects(ts, this.defaultTextStyle)
     MergeObjects(ts, this.props.textStyle)
-    ts['fontSize'] = ts['fontSize'] * this.props.scale
+    ts["fontSize"] = ts["fontSize"] * this.props.scale
 
     let ps = this.props.strings.map((string) => {
       return <p style={ts}>{string}</p>
     })
 
     return (
-      <div style={{margin: '200px auto'}}>
+      <div style={{margin: "200px auto"}}>
         {ps}
       </div>
     )
@@ -57,9 +57,9 @@ PlaneString.propTypes = {
 }
 PlaneString.defaultProps = {
   scale: 1,
-  strings: ['my site'],
+  strings: ["my site"],
   textStyle: {
-      color: '#000',
-      textShadow: '1px 1px 0 #eee'
+      color: "#000",
+      textShadow: "1px 1px 0 #eee"
     }
 }

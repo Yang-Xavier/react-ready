@@ -5,12 +5,12 @@
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, Redirect, hashHistory} from 'react-router'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import React from "react"
+import ReactDOM from "react-dom"
+import { Router, Route, IndexRoute, Redirect, hashHistory} from "react-router"
+import injectTapEventPlugin from "react-tap-event-plugin"
  
-import RootLoginBlock from './component/RootLogin.jsx'
+import RootLoginBlock from "./component/RootLogin.jsx"
 
 injectTapEventPlugin()
 
@@ -25,5 +25,5 @@ window.ReactInit = function glue() {
     <Router history={hashHistory}>
       <Route path="/"  component={__RootLoginBlock} />
     </Router>,
-    document.getElementById('root'))
+    document.getElementById("root"))
 }

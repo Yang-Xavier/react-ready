@@ -1,28 +1,28 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import RaisedButton from 'material-ui/lib/raised-button'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import RaisedButton from "material-ui/RaisedButton"
+import getMuiTheme from "material-ui/styles/getMuiTheme"
 
-import InfoDialog from './tool/InfoDialog.jsx'
-import {LenCtlTextField} from './textfield/InputContrlTextField.jsx'
-import {InlineTBFrame} from './frame/TextButtonFrame.jsx'
+import InfoDialog from "./tool/InfoDialog.jsx"
+import {LenCtlTextField} from "./textfield/InputContrlTextField.jsx"
+import {InlineTBFrame} from "./frame/TextButtonFrame.jsx"
 
-import RootPageTheme from './logTheme.js'
-import {uriChange} from './lib/pageFun.js'
-import {RootLogin} from './lib/callToBack.js'
-import {windowSize} from './lib/pageFun.js'
+import RootPageTheme from "./logTheme.js"
+import {uriChange} from "./lib/pageFun.js"
+import {RootLogin} from "./lib/callToBack.js"
+import {windowSize} from "./lib/pageFun.js"
 
 export default class RootLoginBlock extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      'disabled': false,
+      "disabled": false
     }
 
     this.value = {
-      'passwd':'',
-      'isValid': false
+      "passwd":"",
+      "isValid": false
     }
 
     this.callbacks = this.callbacks.bind(this)
@@ -33,22 +33,22 @@ export default class RootLoginBlock extends Component {
 
   getChildContext(){
     return {
-      muiTheme: ThemeManager.getMuiTheme(RootPageTheme)
+      muiTheme: getMuiTheme(RootPageTheme)
     }
   }
 
   callbacks(){
     return {
-      'callback': (value) => {
+      "callback": (value) => {
         this.value = {
-          'isValid': true,
-          'passwd': value.trim()
+          "isValid": true,
+          "passwd": value.trim()
         }
       },
-      'errCallback': (value) => {
+      "errCallback": (value) => {
         this.value = {
-          'isValid': false,
-          'passwd': ''
+          "isValid": false,
+          "passwd": ""
         }
       }
     }  
@@ -71,10 +71,10 @@ export default class RootLoginBlock extends Component {
         return
       }
 
-      if(body['status']){
-        this._dialog.Open("Error", body['message'])
+      if(body["status"]){
+        this._dialog.Open("Error", body["message"])
       }else{
-        uriChange('/ghost/')
+        uriChange("/ghost/")
       }
     })
 
@@ -83,26 +83,26 @@ export default class RootLoginBlock extends Component {
   render() {
     let textField = (
       <LenCtlTextField hintText="Please input password" floatingLabelText="Root" minl={1} maxl={50}
-         errString="Length of password should be between 1 to 50 ."  type={'password'}
+         errString="Length of password should be between 1 to 50 ."  type={"password"}
         {...this.callbacks()} disabled={this.state.disabled} />
     )
     let button = (      
-      <RaisedButton label="GO" secondary={true} labelColor={'black'} onTouchTap={this.handleButtonTouchTap}/>
+      <RaisedButton label="GO" secondary={true} labelColor={"black"} onTouchTap={this.handleButtonTouchTap}/>
     )
     
     let style = {
       width: 500,
       height: 88,
-      margin: (windowSize().height-88)/2+'px auto'
+      margin: (windowSize().height-88)/2+"px auto"
     }
       
     return (
       <div style={style}>
-        <InfoDialog ref={(c)=>{this._dialog = c}} contentStyle={{color: 'rgb(224,224,224)'}}/>
+        <InfoDialog ref={(c)=>{this._dialog = c}} contentStyle={{color: "rgb(224,224,224)"}}/>
         <InlineTBFrame 
         textelement={textField} 
         buttonelement={button}
-        style={{height:88, justifyContent: "center",}}/>
+        style={{height:88, justifyContent: "center"}}/>
       </div>
     )
   }
@@ -110,5 +110,5 @@ export default class RootLoginBlock extends Component {
 RootLoginBlock.propTypes = {style: React.PropTypes.object}
 RootLoginBlock.defaultProps = {style: {}}
 RootLoginBlock.childContextTypes = {
-  muiTheme: React.PropTypes.object,
+  muiTheme: React.PropTypes.object
 }

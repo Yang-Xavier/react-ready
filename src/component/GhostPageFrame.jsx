@@ -4,14 +4,14 @@
  * Email: mephistommm@gmail.com
  * Update: 03.04.2016
  */
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import ParticipatorCard from './Participator.jsx'
-import {ProjectInfo} from './AuthorAbout.jsx'
-import Participators from './Participators.jsx'
-import OtherFuncsCard from './OtherFuncsCard.jsx'
+import ParticipatorCard from "./Participator.jsx"
+import {ProjectInfo} from "./AuthorAbout.jsx"
+import Participators from "./Participators.jsx"
+import OtherFuncsCard from "./OtherFuncsCard.jsx"
 
-import {ClearCard, SToggleCard} from './TipCard.jsx'
+import {ClearCard, SToggleCard} from "./TipCard.jsx"
 
 export default class GhostPageFrame extends Component {
 
@@ -19,8 +19,8 @@ export default class GhostPageFrame extends Component {
     super(props)
 
     this.state = {
-      'toShow': false,
-      'data': {}
+      "toShow": false,
+      "data": {}
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -29,13 +29,13 @@ export default class GhostPageFrame extends Component {
   handleClick(data){
     if(!this.state.data || this.state.data.email != data.email){
       this.setState({
-        'toShow': true,
-        'data': data
+        "toShow": true,
+        "data": data
       })
     }else{
       this.setState({
-        'toShow': false,
-        'data': {}
+        "toShow": false,
+        "data": {}
       })
     }
   }
@@ -45,25 +45,25 @@ export default class GhostPageFrame extends Component {
     floatMargin = floatMargin > 0 ? floatMargin : 0
 
     let margin_listcard = {
-      float: 'left',
-      margin: '100px 30px 0 0'
+      float: "left",
+      margin: "100px 30px 0 0"
     }
     
     let margin_participatorcard = {
-      margin: '50px 0',
-      float: 'right'
+      margin: "50px 0",
+      float: "right"
     }
     let margin_otherfuncscard = {
-      margin: '100px 0 0',
-      float: 'right'
+      margin: "100px 0 0",
+      float: "right"
     }
 
     return (
       <div style={{
         width: 1050,
-        margin:'0 '+floatMargin+'px 40px',
-        padding: '0', float:'left',
-        overflowX: 'scroll'
+        margin:"0 "+floatMargin+"px 40px",
+        padding: "0", float:"left",
+        overflowX: "scroll"
       }}>
         <Participators  style={margin_listcard} onRowClick={this.handleClick}/>
         <OtherFuncsCard style={margin_otherfuncscard} />
@@ -86,11 +86,11 @@ export class ControlPageFrame extends Component {
 
   constructor(props){
     super(props)
-    this.state = {'state':1}
+    this.state = {"state":1}
 
     this.divStyle = {
-      margin: '150px auto',
-      width: '700px',
+      margin: "150px auto",
+      width: "700px"
     }
   
   }
@@ -99,8 +99,8 @@ export class ControlPageFrame extends Component {
 
     return (
       <div style={this.divStyle}>
-        <SToggleCard style={{margin: '0 auto'}} />
-        <ClearCard style={{margin: '30px auto'}}/>
+        <SToggleCard style={{margin: "0 auto"}} />
+        <ClearCard style={{margin: "30px auto"}}/>
       </div>
     )
   }

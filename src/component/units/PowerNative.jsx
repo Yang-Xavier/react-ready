@@ -4,9 +4,9 @@
  * Email: mephistommm@gmail.com
  * Update: 03.04.2016
  */
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import {hashChange} from '../lib/pageFun.js'
+import {hashChange} from "../lib/pageFun.js"
 
 /* this <a> component could change style while mouse over
  *
@@ -17,7 +17,7 @@ export class PowerA extends Component {
 
   constructor(props){
     super(props)
-    this.state = {'isHovered':false}
+    this.state = {"isHovered":false}
 
     this.handleHowered = this.handleHowered.bind(this)
     this.handleLeave = this.handleLeave.bind(this)
@@ -25,13 +25,13 @@ export class PowerA extends Component {
 
   handleHowered(){
     this.setState({
-      'isHovered': true
+      "isHovered": true
     })
   }
 
   handleLeave(){
     this.setState({
-      'isHovered': false
+      "isHovered": false
     })
   }
 

@@ -1,16 +1,16 @@
 /* This component defined many contrler components input text field
  *
  * Usage: 
- *	   import XXXCtlTextField from './component/InputContrlTextField.jsx'
+ *	   import XXXCtlTextField from "./component/InputContrlTextField.jsx"
  *
  * Author: Mephis Pheies
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
-import TextField from 'material-ui/lib/text-field'
-import {MergeObjects} from '../lib/util.js'
+import TextField from "material-ui/TextField"
+import {MergeObjects} from "../lib/util.js"
 
 //function for judge value by reg
 export const regJudger = (reg) => {
@@ -27,7 +27,7 @@ export const lenJudger = (minl, maxl) => {
 
 /* special value text input contrler
  * @prop reg RegExp a reg to match special text
- * @prop errString String the error info [default:'Length of text mast between 0 and 100!']
+ * @prop errString String the error info [default:"Length of text mast between 0 and 100!"]
  * @prop errCallback Function if input is error , call it
  * @prop callback Function if input is true, call it
  */
@@ -39,17 +39,17 @@ export const RegCtlTextField = (props) => {
 }
 RegCtlTextField.propTypes = {
   reg: React.PropTypes.object,
-  errString: React.PropTypes.string,
+  errString: React.PropTypes.string
 }
 RegCtlTextField.defaultProps = {
-  reg: /don't forget it/i,
-  errString: 'Please input suit value!',
+  reg: /don"t forget it/i,
+  errString: "Please input suit value!"
 } 
 
 /* length text input contrler
  * @prop minl Number min length [default:0]
  * @prop maxl Number max length [default:100]
- * @prop errString String the error info [default:'Length of text mast between 0 and 100!']
+ * @prop errString String the error info [default:"Length of text mast between 0 and 100!"]
  * @prop errCallback Function if input is error , call it
  * @prop callback Function if input is true, call it
  */
@@ -61,19 +61,19 @@ export const LenCtlTextField = (props) => {
 LenCtlTextField.propTypes = {
   minl: React.PropTypes.number,
   maxl: React.PropTypes.number,
-  errString: React.PropTypes.string,
+  errString: React.PropTypes.string
 }
 LenCtlTextField.defaultProps = {
   minl: 0,
   maxl: 100,
-  errString: 'Length of text mast between 0 and 100!',
+  errString: "Length of text mast between 0 and 100!"
 } 
 
 /* this are two TextField, one get init value , other confirm the value ,
  * usually used in confirm password input
  *
  * @prop confirmErrString String the error string while confirm two values failed
- * @prop errString String the error info [default:'Length of text mast between 0 and 100!']
+ * @prop errString String the error info [default:"Length of text mast between 0 and 100!"]
  * @prop errCallback Function(string ,string) if input is error , call it
  * @prop callback Function(value) if input is true, call it
  * @prop judgeFunc Function(vlaue) fuction for judge whether the value is valid
@@ -83,22 +83,22 @@ export class ConfirmCtlTextField extends Component{
   constructor(props){
     super(props)
     this.state = {
-      'upValue': '',
-      'downValue': '',
-      'upIsErr': false,
-      'upErrString': '',
-      'downErrString': ''
+      "upValue": "",
+      "downValue": "",
+      "upIsErr": false,
+      "upErrString": "",
+      "downErrString": ""
     }
 
     this.divDefaultStyle = {
       display: "flex",
       justifyContent: "center",
-      alignItems: 'center',
-      flexFlow: 'column'
+      alignItems: "center",
+      flexFlow: "column"
     }
 
     this.tfDivDefaultStyle = {
-      margin: '10px 0',
+      margin: "10px 0",
       height: 88
     }
 
@@ -112,17 +112,17 @@ export class ConfirmCtlTextField extends Component{
   confirmJudgeFunc(){
     let state = this.state
 
-    if(!(state.upValue.length > 0 && state.downValue.length > 0)) return ;
+    if(!(state.upValue.length > 0 && state.downValue.length > 0)) return 
     // while upValue and downValue are both full, do follow
 
     if(state.upValue === state.downValue){
       this.setState({
-        'downErrString': ''
+        "downErrString": ""
       })
       this.props.callback(state.upValue)
     }else{
       this.setState({
-        'downErrString': this.props.confirmErrString
+        "downErrString": this.props.confirmErrString
       })
       this.props.errCallback(state.upValue, state.downValue)
     }
@@ -130,30 +130,30 @@ export class ConfirmCtlTextField extends Component{
 
   upHandleOnChange(event){
     this.setState({
-      upValue: event.target.value,
+      upValue: event.target.value
     })
 
-    if(this.state.upIsErr === false) return;
+    if(this.state.upIsErr === false) return
     
     if(this.props.judgeFunc(event.target.upValue)){
       this.setState({
-        'upErrString': '',
+        "upErrString": ""
       })
     }else{
       this.setState({
-        'upErrString': this.props.errString
+        "upErrString": this.props.errString
       })
     }
   }
 
   upHandleOnBlur(){
     if(this.props.judgeFunc(this.state.upValue)){
-      this.setState({'upIsErr': false, 'upErrString': ''})
+      this.setState({"upIsErr": false, "upErrString": ""})
       this.confirmJudgeFunc()
     }else{
       this.setState({
-        'upIsErr': true,
-        'upErrString': this.props.errString
+        "upIsErr": true,
+        "upErrString": this.props.errString
       })
       this.props.errCallback(this.state.upValue, this.state.downValue)
     }
@@ -161,7 +161,7 @@ export class ConfirmCtlTextField extends Component{
 
   downHandleOnChange(event){
     this.setState({
-      downValue: event.target.value,
+      downValue: event.target.value
     })
   }
 
@@ -183,11 +183,11 @@ export class ConfirmCtlTextField extends Component{
     return (
       <div style={divStyle}>
         <div style={tfDivStyle}>
-          <TextField {...this.props} type={'password'} errorText={this.state.upErrString} 
+          <TextField {...this.props} type={"password"} errorText={this.state.upErrString} 
             onChange={this.upHandleOnChange} onBlur={this.upHandleOnBlur} />
         </div>  
         <div style={tfDivStyle}>
-        <TextField floatingLabelText={'Input Again'} type={'password'} errorText={this.state.downErrString} 
+        <TextField floatingLabelText={"Input Again"} type={"password"} errorText={this.state.downErrString} 
           onChange={this.downHandleOnChange} onBlur={this.downHandleOnBlur} />
         </div>  
       </div>  
@@ -205,17 +205,17 @@ ConfirmCtlTextField.propTypes = {
 ConfirmCtlTextField.defaultProps = {
   divStyle: {},
   tfStyle: {
-    margin: '10px 0'
+    margin: "10px 0"
   },
-  errCallback: () => console.log('error value'),
-  callback: () => console.log('true value'),
-  errString: 'Your input is wrong',
+  errCallback: () => console.log("error value"),
+  callback: () => console.log("true value"),
+  errString: "Your input is wrong",
   confirmErrString: "Two inputs don't match the confirmation"
 }
 
 
 /* base text input contrler
- * @prop errString String the error info [default:'Length of text mast between 0 and 100!']
+ * @prop errString String the error info [default:"Length of text mast between 0 and 100!"]
  * @prop errCallback Function if input is error , call it
  * @prop callback Function(value) if input is true, call it
  * @prop judgeFunc Function(vlaue) fuction for judge whether the value is valid
@@ -225,9 +225,9 @@ export class BaseCtlTextField extends Component {
   constructor(props){
     super(props)
     this.state = {
-      'isError': 0,
-      'value': '',
-      'errValue': ''
+      "isError": 0,
+      "value": "",
+      "errValue": ""
     }
 
     this.ctlJudge_and_changeText = this.ctlJudge_and_changeText.bind(this)
@@ -237,7 +237,7 @@ export class BaseCtlTextField extends Component {
 
   //TODO: this.state.value is not needed to put in state , for while it change ,nothing should be change 
   //      so, we can put it in this.value
-  /* this component 's  core, it change errorText and call resove or reject
+  /* this component "s  core, it change errorText and call resove or reject
    * @param resove Function(String) 
    * @param reject Function(String)
    */
@@ -247,20 +247,20 @@ export class BaseCtlTextField extends Component {
 
     if(JudgeFunc(value)){
       this.setState({
-        errValue: '',
-      });
+        errValue: ""
+      })
       resove && resove(value)
     }else{
       this.setState({
-        errValue: this.props.errString,
-      });
+        errValue: this.props.errString
+      })
       reject && reject(value)
     }
   }
 
   handleOnChange(event){
     this.setState({
-      value: event.target.value,
+      value: event.target.value
     })
 
     if(this.state.isError === 1){
@@ -271,11 +271,11 @@ export class BaseCtlTextField extends Component {
   handleOnBlur(){
     this.ctlJudge_and_changeText(
       (value) => {
-        this.setState({'isError': 0})
+        this.setState({"isError": 0})
         this.props.callback(value)
       },
       (value) => {
-        this.setState({'isError': 1})
+        this.setState({"isError": 1})
         this.props.errCallback(value)
       }
     )
@@ -297,8 +297,8 @@ BaseCtlTextField.propTypes = {
 }
 BaseCtlTextField.defaultProps = {
   judgeFunc: (value) => value,
-  errString: 'Your input is wrong!',
-  errCallback: () => console.log('error value'),
-  callback: () => console.log('true value')
+  errString: "Your input is wrong!",
+  errCallback: () => console.log("error value"),
+  callback: () => console.log("true value")
 } 
 

@@ -5,35 +5,36 @@
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, Redirect, hashHistory} from 'react-router'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import React from "react"
+import ReactDOM from "react-dom"
+import { Router, Route, IndexRoute, Redirect, hashHistory} from "react-router"
+import injectTapEventPlugin from "react-tap-event-plugin"
  
-import GhostTheme from './component/ghostTheme.js'
-import App, {AppLeftNav} from './component/nav/App.jsx'
-import ChangePasswordCard from './component/ChangePassword.jsx'
-import GhostPageFrame,{ControlPageFrame} from './component/GhostPageFrame.jsx'
+import GhostTheme from "./component/ghostTheme.js"
+import App, {AppLeftNav} from "./component/nav/App.jsx"
+import ChangePasswordCard from "./component/ChangePassword.jsx"
+import GhostPageFrame,{ControlPageFrame} from "./component/GhostPageFrame.jsx"
+import {SendAllCard} from "./component/TipCard.jsx"
 
-import {UserLogout} from './component/lib/callToBack.js'
-import {uriChange,windowSize} from './component/lib/pageFun.js'
+import {UserLogout} from "./component/lib/callToBack.js"
+import {uriChange,windowSize} from "./component/lib/pageFun.js"
 
 injectTapEventPlugin()
 
 function logout(){
   UserLogout(()=>{
-    uriChange('/')
+    uriChange("/")
   })
 }
 
 let menuList = [
-  {'pkey': 'Participators', 'hash': 'participators'},
-  {'pkey':'Send Email All', 'hash': 'sendall'},
-  {'pkey':'Control', 'hash': 'control'},
-  {'pkey': '-'},
-  {'pkey': 'Change Password', 'hash': 'change_password'},
-  {'pkey': 'Logout', 'click': logout},
-  {'pkey': '-'},
+  {"pkey": "Participators", "hash": "participators"},
+  {"pkey":"Send Email All", "hash": "sendall"},
+  {"pkey":"Control", "hash": "control"},
+  {"pkey": "-"},
+  {"pkey": "Change Password", "hash": "change_password"},
+  {"pkey": "Logout", "click": logout},
+  {"pkey": "-"}
 ]
 
 let wsize = windowSize()
@@ -59,5 +60,5 @@ window.ReactInit = function glue() {
         <Route path="sendall" component={__SendAllCard} />
       </Route>
     </Router>,
-    document.getElementById('root'))
+    document.getElementById("root"))
 }

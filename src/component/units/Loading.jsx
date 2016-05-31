@@ -1,17 +1,16 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import CircularProgress from 'material-ui/lib/circular-progress'
-import Card from 'material-ui/lib/card/card'
-import CardTitle from 'material-ui/lib/card/card-title'
+import CircularProgress from "material-ui/CircularProgress"
+import {Card, CardTitle} from "material-ui/Card"
 
-import {MergeObjects} from '../lib/util.js'
+import {MergeObjects} from "../lib/util.js"
 
 export class StaticLoading extends Component {
 
   constructor(props){
     super(props)
     this.style = {
-      position: 'absolute'
+      position: "absolute"
     }
   }
 
@@ -41,8 +40,8 @@ export class Loading extends Component {
     this.planeDefaultStyle = {
       display: "flex",
       justifyContent: "center",
-      alignItems: 'center',
-      flexFlow: 'column'
+      alignItems: "center",
+      flexFlow: "column"
     }
   }
 
@@ -90,14 +89,14 @@ export class LoadingCard extends Component {
   render() {
     let children = null 
     let style = this.style
-    style.minHeight = this.minHeight+'px'
+    style.minHeight = this.minHeight+"px"
 
     for(let key in this.props.style){
       style[key] = this.props.style[key]
     }
 
     if(this.props.isloading){
-      children = <Loading style={{margin: '50px'}}/>
+      children = <Loading style={{margin: "50px"}}/>
     }else{
       children = this.props.children
     }
@@ -113,11 +112,11 @@ export class LoadingCard extends Component {
 LoadingCard.propTypes = {
   //headColumns is the name of the Columns , but rowColumns is the key name of the Column element
   cardTitle: React.PropTypes.string,
-  isloading: React.PropTypes.bool,
+  isloading: React.PropTypes.bool
 }
 LoadingCard.defaultProps = {
   style: {},
-  cardTitle: 'Title',
+  cardTitle: "Title",
   isloading: true
 }
 

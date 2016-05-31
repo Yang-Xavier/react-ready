@@ -5,23 +5,22 @@
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from "react"
  
-import Colors from 'material-ui/lib/styles/colors'
-import FlatButton from 'material-ui/lib/flat-button'
+import {amberA400, pink500} from "material-ui/styles/colors"
+import FlatButton from "material-ui/FlatButton"
 
-import {BasicCard} from './card/CommonCard.jsx'
-import TableContainer,{MagicTable} from './tables/TableContent.jsx'
-import {Loading} from './units/Loading.jsx'
-import InfoDialog from './tool/InfoDialog.jsx'
-import {PowerA} from './units/PowerNative.jsx'
-import BetweenButtons from './buttons/BetweenButtons.jsx'
-import {RegCtlTextField} from './textfield/InputContrlTextField.jsx'
+import {BasicCard} from "./card/CommonCard.jsx"
+import TableContainer,{MagicTable} from "./tables/TableContent.jsx"
+import {Loading} from "./units/Loading.jsx"
+import InfoDialog from "./tool/InfoDialog.jsx"
+import {PowerA} from "./units/PowerNative.jsx"
+import BetweenButtons from "./buttons/BetweenButtons.jsx"
+import {RegCtlTextField} from "./textfield/InputContrlTextField.jsx"
 
-import {hashChange} from './lib/pageFun.js'
-import {MergeObjects, ObjectSimpleCompare} from './lib/util.js'
-import {GetWithParams, DeleteParticipators, SendEmail} from './lib/callToBack.js'
+import {hashChange} from "./lib/pageFun.js"
+import {MergeObjects, ObjectSimpleCompare} from "./lib/util.js"
+import {GetWithParams, DeleteParticipators, SendEmail} from "./lib/callToBack.js"
 
 /* this dialog to send email
  *
@@ -33,12 +32,12 @@ class SendDialog extends Component {
     super(props)
 
     this._send = {
-      Open: () => console.log('send Dialog')
+      Open: () => console.log("send Dialog")
     }
 
     this.bodyStyle = {
-      overflowY: 'scroll',
-      overflowX: 'hidden'
+      overflowY: "scroll",
+      overflowX: "hidden"
     }
 
     this.content ={
@@ -63,12 +62,12 @@ class SendDialog extends Component {
 
     let users = this.datas.map((data) => {
       return (
-        <p style={{textIndent: '4em'}}>{data.name + '(' + data.email + ')'}</p>)
+        <p style={{textIndent: "4em"}}>{data.name + "(" + data.email + ")"}</p>)
     })
 
     let InfoString = (
       <div >
-        <p style={{color: Colors.amberA400, fontWeight: 900, margin:"0"}}>
+        <p style={{color: amberA400, fontWeight: 900, margin:"0"}}>
           {"Please input the main content of email: "}</p>
         <RegCtlTextField 
           fullWidth={true}
@@ -82,28 +81,28 @@ class SendDialog extends Component {
           {...this.callbacks()}
         />
                
-        <p style={{color: Colors.amberA400, fontWeight: 900, margin:"25px 0 0 0"}}>
+        <p style={{color: amberA400, fontWeight: 900, margin:"25px 0 0 0"}}>
           {"Would you want to send email to: "}</p>
         {users}
 
       </div>
     )
 
-    this._send.Open( 'Send Email', InfoString)
+    this._send.Open( "Send Email", InfoString)
   }
 
   callbacks(){
     return {
-      'callback': (value) => {
+      "callback": (value) => {
         this.content = {
-          'isValid': true,
-          'value': value
+          "isValid": true,
+          "value": value
         }
       },
-      'errCallback': (value) => {
+      "errCallback": () => {
         this.content = {
-          'isValid': false,
-          'value': ''
+          "isValid": false,
+          "value": ""
         }
       }
     }  
@@ -152,7 +151,7 @@ class DeleteDialog extends Component {
     super(props)
 
     this._delete = {
-      Open: () => console.log('delete Dialog')
+      Open: () => console.log("delete Dialog")
     }
 
     this.datas = []
@@ -172,17 +171,17 @@ class DeleteDialog extends Component {
 
     let users = this.datas.map((data) => {
       return (
-        <p style={{textIndent: '4em'}}>{data.name + '(' + data.email + ')'}</p>)
+        <p style={{textIndent: "4em"}}>{data.name + "(" + data.email + ")"}</p>)
     })
 
     let InfoString = (
       <div >
-        <p style={{color: Colors.pink500, fontWeight: 900}}>{"Would you want to delete: "}</p>
+        <p style={{color: pink500, fontWeight: 900}}>{"Would you want to delete: "}</p>
         {users}
       </div>
     )
 
-    this._delete.Open( 'Delete', InfoString)
+    this._delete.Open( "Delete", InfoString)
   }
 
   handleClick(){
@@ -228,7 +227,7 @@ export default class Participators extends Component {
       isLoading: true, 
     }
 
-    this.callUrl =  '/api/participators/'
+    this.callUrl =  "/api/participators/"
     this._dialog = {}
     this._delete = {}
     this._send = {}
@@ -249,31 +248,31 @@ export default class Participators extends Component {
     this.setState({
       isLoading: true
     })
-    GetWithParams(this.callUrl, {'items':items, 'page':page,'type':type},(err, data)=> {
+    GetWithParams(this.callUrl, {"items":items, "page":page,"type":type},(err, data)=> {
       this.setState({
         isLoading: false
       })
 
       if(err){
-        this._dialog.Open('Error', err.toString())
+        this._dialog.Open("Error", err.toString())
         return 
       }
 
-      if(data['status'] === 1){
-        this._dialog.Open('Error', data['message'])
+      if(data["status"] === 1){
+        this._dialog.Open("Error", data["message"])
       }else{
         //this.setState({
           //table: {
-            //pages: data['message'].pages,
-            //page: data['message'].page,
-            //items: data['message'].items,
-            //items_num: data['message'].items_num
+            //pages: data["message"].pages,
+            //page: data["message"].page,
+            //items: data["message"].items,
+            //items_num: data["message"].items_num
           //}})
         this.state.table = {
-            pages: data['message'].pages,
-            page: data['message'].page,
-            items: data['message'].items,
-            items_num: data['message'].items_num
+            pages: data["message"].pages,
+            page: data["message"].page,
+            items: data["message"].items,
+            items_num: data["message"].items_num
           }
         this.forceUpdate()
       }
@@ -302,21 +301,21 @@ export default class Participators extends Component {
       this.getParticipators(10, this.state.table.page, 2)
     }
     let handleSendMailOk = () => {
-      this._dialog.Open('OK', 'Send Email Successfully!')
+      this._dialog.Open("OK", "Send Email Successfully!")
     }
 
-    let handleOk = buttonName === 'Delete' ? handleDeleteOk : handleSendMailOk
+    let handleOk = buttonName === "Delete" ? handleDeleteOk : handleSendMailOk
 
     return (err, body) => {
       this.setState({isLoading: false})
       this.selected = []
       if(err){
-        this._dialog.Open('Error', err.toString())
+        this._dialog.Open("Error", err.toString())
         return 
       }
 
-      if(body['status'] === 1){
-        this._dialog.Open('Error', body['message'])
+      if(body["status"] === 1){
+        this._dialog.Open("Error", body["message"])
       }else{
         handleOk()
       }
@@ -340,9 +339,9 @@ export default class Participators extends Component {
   handleRowSelection(data){
     this.selected = []
 
-    if(data === 'all'){
+    if(data === "all"){
       for(let i=0;i<this.state.table.items_num;i++) this.selected.push(i);
-    }else if(data !== 'none'){
+    }else if(data !== "none"){
       this.selected = data
     }
 
@@ -354,9 +353,9 @@ export default class Participators extends Component {
 
     let table = this.state.table
     let BCstyle = {
-      margin: '150px auto' ,
-      width: '600px',
-      background: 'white'
+      margin: "150px auto" ,
+      width: "600px",
+      background: "white"
     }
 
     let loading = (
@@ -367,11 +366,11 @@ export default class Participators extends Component {
 
     let magicTableContainer = (
           <MagicTable 
-           tableHeader={'all participters'} 
-           tableFooter={'Page '+(table.page+1)+'/'+table.pages}
+           tableHeader={"all participters"} 
+           tableFooter={"Page "+(table.page+1)+"/"+table.pages}
            height={500}
-           rowColumns={['name','email']}
-           headColumns={['Name', 'Email']}
+           rowColumns={["name","email"]}
+           headColumns={["Name", "Email"]}
            datas={table.items}
            selectable={!this.state.isLoading}
            showRowHover={true}
@@ -384,14 +383,14 @@ export default class Participators extends Component {
     )
 
     let buttons = [
-      {'label': 'Delete', 
-        'onTouchTap': () => this._delete.Open(this.selected, table.items),
-        'disabled': this.state.isLoading ,
-        'type': 1, 'btype': 1}, 
-      {'label': 'Send Email', 
-        'onTouchTap': () => this._send.Open(this.selected, table.items),
-        'disabled': this.state.isLoading ,
-        'type': 2, 'btype': 1}, 
+      {"label": "Delete", 
+        "onTouchTap": () => this._delete.Open(this.selected, table.items),
+        "disabled": this.state.isLoading ,
+        "type": 1, "btype": 1}, 
+      {"label": "Send Email", 
+        "onTouchTap": () => this._send.Open(this.selected, table.items),
+        "disabled": this.state.isLoading ,
+        "type": 2, "btype": 1}, 
     ]
 
     let child = this.state.isLoading ?  loading : magicTableContainer
@@ -399,13 +398,13 @@ export default class Participators extends Component {
     BCstyle = MergeObjects(MergeObjects({}, BCstyle), this.props.style)
 
     return (
-        <BasicCard title={'Participators'} subtitle={'so many lovely participters.'} style={BCstyle} >
+        <BasicCard title={"Participators"} subtitle={"so many lovely participters."} style={BCstyle} >
           <InfoDialog ref={(c)=>{this._dialog = c}} />
           <DeleteDialog ref={(c)=>{this._delete = c}} 
-            afterDelete={this.handleFunctionButtonClick('Delete')} 
+            afterDelete={this.handleFunctionButtonClick("Delete")} 
             beforeDelete={() => this.setState({isLoading: true})}/>
           <SendDialog ref={(c)=>{this._send = c}} 
-            afterSend={this.handleFunctionButtonClick('Email')} 
+            afterSend={this.handleFunctionButtonClick("Email")} 
             beforeSend={() => this.setState({isLoading: true})}/>
           <BetweenButtons buttons={buttons} style={{padding: "0 16px 0 0", margin: "0 0 0 350px"}}/>
           <TableContainer 

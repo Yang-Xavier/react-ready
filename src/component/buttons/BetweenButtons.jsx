@@ -4,25 +4,25 @@
  * Email: mephistommm@gmail.com
  * Update: 29.03.2016
  */
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import RaisedButton from 'material-ui/lib/raised-button'
-import FlatButton from 'material-ui/lib/flat-button'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import RaisedButton from "material-ui/RaisedButton"
+import FlatButton from "material-ui/FlatButton"
+import FloatingActionButton from "material-ui/FloatingActionButton"
 
-import {MergeObjects} from '../lib/util.js'
+import {MergeObjects} from "../lib/util.js"
 
 //TODO: modify CenterButtons , make it be reuseable
 
 /* this function create buttons automatically
  *
  * button formate: {
- *  'label': string,
- *  'onTouchTap': function,
- *  'disabled': 1,
- *  'type': 0,1,2  //1: primary , 2: secondary, 0: default
- *  'btype': 0,1,2 //0: RaisedButton , 1: FlatButton 2:FloatingActionButton 
- *  'others': object , other props
+ *  "label": string,
+ *  "onTouchTap": function,
+ *  "disabled": 1,
+ *  "type": 0,1,2  //1: primary , 2: secondary, 0: default
+ *  "btype": 0,1,2 //0: RaisedButton , 1: FlatButton 2:FloatingActionButton 
+ *  "others": object , other props
  *  }
  *
  * @param elf Object button formate
@@ -51,7 +51,7 @@ function suitButton(elf){
     props.disabled = true
   }
 
-  if(typeof elf.label === 'string'){
+  if(typeof elf.label === "string"){
     props.label = elf.label
   }else{
     children.push(elf.label)
@@ -66,8 +66,8 @@ export class CenterButtons extends Component {
     super(props)
 
     this.mainStyle = {
-      display: 'inline',
-      margin: '0 auto',
+      display: "inline",
+      margin: "0 auto"
     }
   }
 
@@ -97,7 +97,7 @@ export default class BetweenButtons extends Component {
     this.mainStyle = {
       display: "flex",
       justifyContent: "space-between",
-      alignItems: 'center',
+      alignItems: "center"
     }
   }
 
@@ -117,7 +117,7 @@ export default class BetweenButtons extends Component {
 }
 BetweenButtons.propTypes = {
   style: React.PropTypes.object,
-  //button formate: [{'label': string, 'onTouchTap': function, 'disabled': 1 ,'type': 0,1,2}, ...]
+  //button formate: [{"label": string, "onTouchTap": function, "disabled": 1 ,"type": 0,1,2}, ...]
   //1: primary , 2: secondary, 0: default
   buttons: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 }

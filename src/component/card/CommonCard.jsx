@@ -5,15 +5,13 @@
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
+import React, { Component } from "react"
  
-import Card from 'material-ui/lib/card/card'
-import Divider from 'material-ui/lib/divider'
-import CardTitle from 'material-ui/lib/card/card-title'
-import CardMedia from 'material-ui/lib/card/card-media'
+import {Card, CardTitle, CardMedia} from "material-ui/Card"
+import Divider from "material-ui/Divider"
 
-import {windowSize} from '../lib/pageFun.js'
-import {MergeObjects} from '../lib/util.js'
+import {windowSize} from "../lib/pageFun.js"
+import {MergeObjects} from "../lib/util.js"
 
 
 /* img card form , it while auto suit to the page size
@@ -39,8 +37,8 @@ export default class CommonImgCard extends Component {
   constructor(props){
     super(props)
     this.state = {
-      'cardStyle': {},
-      'imgStyle': {}
+      "cardStyle": {},
+      "imgStyle": {}
     }
 
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -50,23 +48,23 @@ export default class CommonImgCard extends Component {
     let win = windowSize()
     if(700 <= win.width && win.width < 800){
       this.setState({
-        'cardStyle': { 'margin': '0 auto', 'width': '100%' },
-        'imgStyle': {'display': 'block'}
+        "cardStyle": { "margin": "0 auto", "width": "100%" },
+        "imgStyle": {"display": "block"}
       })
     }else if( 325 <= win.width && win.width < 700){
       this.setState({
-        'cardStyle': { 'margin': '0 auto', 'width': '100%' },
-        'imgStyle': {'display': 'none'}
+        "cardStyle": { "margin": "0 auto", "width": "100%" },
+        "imgStyle": {"display": "none"}
       })
     }else if(win.width < 325){
       this.setState({
-        'cardStyle': { 'margin': '0 auto', 'width': 325 },
-        'imgStyle': {'display': 'none'}
+        "cardStyle": { "margin": "0 auto", "width": 325 },
+        "imgStyle": {"display": "none"}
       })
     }else{
       this.setState({
-        'cardStyle': { 'margin': '100px auto', 'width': 800 },
-        'imgStyle': {'display': 'block'}
+        "cardStyle": { "margin": "100px auto", "width": 800 },
+        "imgStyle": {"display": "block"}
       })
     }
   }
@@ -76,15 +74,15 @@ export default class CommonImgCard extends Component {
 
     let style = {}
     MergeObjects(style, this.props.style)
-    MergeObjects(style, this.state['cardStyle'])
+    MergeObjects(style, this.state["cardStyle"])
 
     return (
       <BasicCard title={this.props.title} subtitle={this.props.subtitle} style={style}>
         <CardMedia >
-            <img src={this.props.img} style={this.props.img ? this.state['imgStyle'] : {display: 'none'}}/>
+            <img src={this.props.img} style={this.props.img ? this.state["imgStyle"] : {display: "none"}}/>
         </CardMedia>
         {this.props.children}
-        { !!this.props.foot ? <Divider /> : null }
+        {this.props.foot ? <Divider /> : null }
         {this.props.foot}
       </BasicCard>
     )
@@ -96,14 +94,14 @@ CommonImgCard.propTypes = {
   subtitle: React.PropTypes.string,
   img: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.object,
+      React.PropTypes.object
     ]),
-  foot: React.PropTypes.element,
+  foot: React.PropTypes.element
 }
 CommonImgCard.defaultProps = {
   style: {},
-  title: 'Title',
-  subtitle: 'Subtitle',
+  title: "Title",
+  subtitle: "Subtitle"
 }
 
 
@@ -132,8 +130,8 @@ export class BasicCard extends Component {
 BasicCard.propTypes = {
   title: React.PropTypes.string.isRequired,
   subtitle: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object,
+  style: React.PropTypes.object
 }
 BasicCard.defaultProps = {
-  style: {},
+  style: {}
 }

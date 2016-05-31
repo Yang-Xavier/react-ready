@@ -1,16 +1,10 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import Table from 'material-ui/lib/table/table'
-import TableBody from 'material-ui/lib/table/table-body'
-import TableHeader from 'material-ui/lib/table/table-header'
-import TableFooter from 'material-ui/lib/table/table-footer'
-import TableHeaderColumn from 'material-ui/lib/table/table-header-column'
-import TableRow from 'material-ui/lib/table/table-row'
-import TableRowColumn from 'material-ui/lib/table/table-row-column'
+import {Table, TableBody, TableHeader, TableFooter, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui/Table"
 
-import BetweenButtons from '../buttons/BetweenButtons.jsx'
+import BetweenButtons from "../buttons/BetweenButtons.jsx"
 
-import {MergeObjects, ObjectSimpleCompare} from '../lib/util.js'
+import {MergeObjects, ObjectSimpleCompare} from "../lib/util.js"
 
 /* this function combine table rows 
  *
@@ -46,7 +40,7 @@ function combineTableRows(keys, datas, style={}){
  * -----------------------------------
  * |     ...        |       ...      |
  *
- * @prop  body Object{'key': String, 'datas', String} the key/value data
+ * @prop  body Object{"key": String, "datas", String} the key/value data
  * @prop  TableName String 
  * @prop  style Object
  */
@@ -61,7 +55,7 @@ export class InfoTable extends Component {
     let bodyElement = null
 
     if(body){
-      bodyElement = combineTableRows(body['keys'], body['datas'])
+      bodyElement = combineTableRows(body["keys"], body["datas"])
     }
 
     return (
@@ -71,12 +65,12 @@ export class InfoTable extends Component {
         selectable={false}>
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn colSpan="2" tooltip='table name' style={{textAlign: 'center'}}>
+            <TableHeaderColumn colSpan="2" tooltip="table name" style={{textAlign: "center"}}>
               {this.props.TableName}
             </TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        //don't show checkbox
+        //don"t show checkbox
         <TableBody displayRowCheckbox={false}
           showRowHover={false} >
           {bodyElement}
@@ -116,7 +110,7 @@ export class MagicTable extends Component {
   constructor(props) {
     super(props)
 
-    this.columnStyle = {textAlign: 'center'}
+    this.columnStyle = {textAlign: "center"}
     this.handleCellClick = this.handleCellClick.bind(this)
     this.handleRowSelection = this.handleRowSelection.bind(this)
   }
@@ -145,9 +139,9 @@ export class MagicTable extends Component {
      */
 
     return (
-      <div style={{padding:'0 16px', margin: '0 0 50px 0'}} >
+      <div style={{padding:"0 16px", margin: "0 0 50px 0"}} >
       <Table 
-        height={this.props.height+'px'} 
+        height={this.props.height+"px"} 
         fixedHeader={this.props.fixedHeader}
         fixedFooter={this.props.fixedFooter}
         selectable={this.props.selectable}
@@ -160,7 +154,7 @@ export class MagicTable extends Component {
           enableSelectAll={this.props.enableSelectAll}
           >
           <TableRow>
-            <TableHeaderColumn colSpan={colSpan} tooltip='page number' style={this.columnStyle}>
+            <TableHeaderColumn colSpan={colSpan} tooltip="page number" style={this.columnStyle}>
               {this.props.tableHeader}
             </TableHeaderColumn>
           </TableRow>
@@ -180,7 +174,7 @@ export class MagicTable extends Component {
            {tableHeadColumns}
          </TableRow>
          <TableRow>
-           <TableRowColumn colSpan={colSpan} style={{textAlign: 'center'}}>
+           <TableRowColumn colSpan={colSpan} style={{textAlign: "center"}}>
             {this.props.tableFooter}
            </TableRowColumn>
          </TableRow>
@@ -223,7 +217,7 @@ MagicTable.defaultProps = {
   onRowClick: (data) => {console.log(data)},
   onRowSelection: (data) => {console.log(data)},
   height: 300,
-  tableHeader: 'Table'
+  tableHeader: "Table"
 }
 
 
@@ -253,14 +247,14 @@ export default class TableContainer extends Component {
   constructor(props) {
     super(props)
 
-    this.defaultStyle = {width: '100%',  margin: '0 0', padding:'0 0'}
+    this.defaultStyle = {width: "100%",  margin: "0 0", padding:"0 0"}
   }
 
   render() {
     let prewButton = { 
-      'label': 'Prew', 'onTouchTap': this.props.buttonsClick[0], 'type': 2, 'disabled': this.props.disabled}
+      "label": "Prew", "onTouchTap": this.props.buttonsClick[0], "type": 2, "disabled": this.props.disabled}
     let nextButton = {
-      'label': 'Next', 'onTouchTap': this.props.buttonsClick[1], 'type': 2 , 'disabled': this.props.disabled}
+      "label": "Next", "onTouchTap": this.props.buttonsClick[1], "type": 2 , "disabled": this.props.disabled}
 
     let divStyle = {}
     MergeObjects(divStyle, this.defaultStyle)
@@ -281,7 +275,7 @@ export default class TableContainer extends Component {
     return (
       <div style={divStyle}>
         {this.props.children}
-        <BetweenButtons buttons={[prewButton, nextButton]} style={{padding: '16px', margin:'0 0'}}/>
+        <BetweenButtons buttons={[prewButton, nextButton]} style={{padding: "16px", margin:"0 0"}}/>
       </div>
     )
   }

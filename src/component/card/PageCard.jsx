@@ -5,16 +5,15 @@
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from "react"
  
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import getMuiTheme from "material-ui/styles/getMuiTheme"
 
-import CommonImgCard from './CommonCard.jsx'
+import CommonImgCard from "./CommonCard.jsx"
 
-import MyTheme from '../selfTheme.js'
-import {onWindowResize} from '../lib/pageFun.js'
-import {MergeObjects} from '../lib/util.js'
+import MyTheme from "../selfTheme.js"
+import {onWindowResize} from "../lib/pageFun.js"
+import {MergeObjects} from "../lib/util.js"
 
 
 /* page card form , it has a beautiful theme
@@ -33,7 +32,7 @@ export default class PageCard extends Component {
 
   getChildContext(){
     return {
-      muiTheme: ThemeManager.getMuiTheme(MyTheme)
+      muiTheme: getMuiTheme(MyTheme)
     }
   }
 
@@ -59,13 +58,13 @@ PageCard.propTypes = {
   subtitle: React.PropTypes.string,
   img: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.object,
+      React.PropTypes.object
     ])
 }
 PageCard.defaultProps = {
-  style: {},
+  style: {}
 }
 PageCard.childContextTypes = {
-  muiTheme: React.PropTypes.object,
+  muiTheme: React.PropTypes.object
 }
 

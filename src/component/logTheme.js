@@ -1,23 +1,27 @@
-import Colors from 'material-ui/lib/styles/colors'
-import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
-import Spacing from 'material-ui/lib/styles/spacing'
+import { 
+  amberA200, amberA400, amberA700,
+  grey50, grey100, grey200, grey300, grey900,
+  darkWhite
+} from "material-ui/styles/colors"
+import {fade} from "material-ui/utils/colorManipulator"
+import Spacing from "material-ui/styles/spacing"
 
 export default {
   spacing: Spacing,
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: "Roboto, sans-serif",
   palette: {
-   primary1Color: Colors.amberA400,
-    primary2Color: Colors.amberA700,
-    primary3Color: Colors.grey50,
-    accent1Color: Colors.amberA200,
-    accent2Color: Colors.grey100,
-    accent3Color: Colors.grey200,
-    textColor: Colors.darkWhite,
-    alternateTextColor: Colors.darkWhite,
-    canvasColor: Colors.grey900,
-    borderColor: Colors.grey300,
-    disabledColor: ColorManipulator.fade(Colors.darkWhite, 0.3),
-    pickerHeaderColor: Colors.amberA400,
-    clockCircleColor: ColorManipulator.fade(Colors.darkWhite, 0.07),
-  },
+   primary1Color: amberA400,
+    primary2Color: amberA700,
+    primary3Color: grey50,
+    accent1Color: amberA200,
+    accent2Color: grey100,
+    accent3Color: grey200,
+    textColor: darkWhite,
+    alternateTextColor: darkWhite,
+    canvasColor: grey900,
+    borderColor: grey300,
+    disabledColor: fade(darkWhite, 0.3),
+    pickerHeaderColor: amberA400,
+    clockCircleColor: fade(darkWhite, 0.07)
+  }
 }

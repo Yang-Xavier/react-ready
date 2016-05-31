@@ -1,19 +1,19 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import Dialog from 'material-ui/lib/dialog'
-import FlatButton from 'material-ui/lib/flat-button'
+import Dialog from "material-ui/Dialog"
+import FlatButton from "material-ui/FlatButton"
 
 export default class InfoDialog extends Component {
   
   constructor(props) {
     super(props)
-    this.state = {'open': false}
+    this.state = {"open": false}
 
     this.handleDialogOpen = this.handleDialogOpen.bind(this)
     this.handleDialogClose = this.handleDialogClose.bind(this)
 
-    this.title = 'info'
-    this.info = 'info'
+    this.title = "info"
+    this.info = "info"
   }
 
   Open(title, info) {
@@ -27,11 +27,11 @@ export default class InfoDialog extends Component {
   }
 
   handleDialogOpen() {
-    this.setState({'open': true})
+    this.setState({"open": true})
   }
 
   handleDialogClose() {
-    this.setState({'open': false})
+    this.setState({"open": false})
   }
 
   render() {

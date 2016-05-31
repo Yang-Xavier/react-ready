@@ -9,19 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "jest": {
-    "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2",
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/fbjs"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
-  },
   "dependencies": {
     "material-ui": "^0.15.0",
     "react": "^15.1.0",
@@ -44,5 +31,27 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "jsx": true
+      }
+    },
+    "extends": "eslint:recommended",
+    "rules":{
+      "semi": [1, "never"],
+      "quotes": [1, "double"]
+    },
+    "env": {
+      "mocha": true,
+      "commonjs": true,
+      "browser": true,
+      "node": false,
+      "es6": true
+    }
   }
 }

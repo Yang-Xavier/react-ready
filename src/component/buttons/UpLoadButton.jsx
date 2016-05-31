@@ -1,15 +1,15 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import FlatButton from 'material-ui/lib/flat-button'
-import FontIcon from 'material-ui/lib/font-icon'
-import Colors from 'material-ui/lib/styles/colors'
+import FlatButton from "material-ui/FlatButton"
+import FontIcon from "material-ui/FontIcon"
+import {grey400, darkBlack, amberA700} from "material-ui/styles/colors"
 
-import {FilterKeyMerge, MergeObjects} from '../lib/util.js'
+import {FilterKeyMerge, MergeObjects} from "../lib/util.js"
 
 /* a upload component (while show up file info)
  *
  * @prop style Object div style
- * @prop judgeValid Func(value, file) check the changed value, if it doesn't return null, 
+ * @prop judgeValid Func(value, file) check the changed value, if it doesn"t return null, 
  *                                     the returned value should be a string and it means error reason
  * @prop callback Func(value, file) if the change value is valid, call this function 
  * @prop errCallback Func(value, file) if the change value is invalid, call this function 
@@ -20,14 +20,14 @@ export class FlatULButtonSection extends Component {
   constructor(props){
     super(props)
     this.state = {
-      'errString': '',
-      'info': ''
+      "errString": "",
+      "info": ""
     }
 
     this.defaultDivStyle = {
       //display: "flex",
       //justifyContent: "start",
-      //alignItems: 'flex-end',
+      //alignItems: "flex-end",
     }
 
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -37,14 +37,14 @@ export class FlatULButtonSection extends Component {
     let err = this.props.judgeValid(value, file)
     if(err !== null && !!err){
       this.setState({
-        'errString': err
+        "errString": err
       })
 
       this.props.errCallback(value, file)
     }else{
       this.setState({
-        'errString':'',
-        'info': 'File: '+value.split('\\').pop()
+        "errString":"",
+        "info": "File: "+value.split("\\").pop()
       })
 
       this.props.callback(value, file)
@@ -55,17 +55,17 @@ export class FlatULButtonSection extends Component {
 
     let infoElement = (value, color) => {
       let style = {
-        color: !!color ? color : Colors.grey400,
-        fontSize: '0.8em',
-        margin: '0 0 0 5px',
+        color: color ? color : grey400,
+        fontSize: "0.8em",
+        margin: "0 0 0 5px"
       }
       return (
         <span style={style}>{value}</span>
       )
     }
 
-    let info = !!this.state.errString ? infoElement(this.state.errString, 'red')
-                 : !!this.state.info ? infoElement(this.state.info, Colors.darkBlack)
+    let info = this.state.errString ? infoElement(this.state.errString, "red")
+                 : this.state.info ? infoElement(this.state.info, darkBlack)
                    : infoElement(this.props.defaultInfo)
 
     let divStyle = MergeObjects(
@@ -76,7 +76,7 @@ export class FlatULButtonSection extends Component {
         <FlatULButton 
           label={"Resume"}
           primary={true}
-          buttonStyle={{color: Colors.amberA700}}
+          buttonStyle={{color: amberA700}}
           onChange={this.handleFileChange}
         />
         {info}
@@ -93,10 +93,10 @@ FlatULButtonSection.propTypes = {
 }
 FlatULButtonSection.defaultProps = {
   style: {},
-  callback: (value, file) => console.log('file change'),
-  errCallback: (value, file) => console.log('err file'),
+  callback: (value, file) => console.log("file change"),
+  errCallback: (value, file) => console.log("err file"),
   judgeValid: (value, file) => null,
-  defaultInfo: 'please select up load file !'
+  defaultInfo: "please select up load file !"
 }
 
 /* flat upload button 
@@ -110,12 +110,12 @@ export default class FlatULButton extends Component {
 
   constructor(props){
     super(props)
-    this.state = {'state':1}
+    this.state = {"state":1}
 
     this.defaultStyle = {
-      cursor: 'pointer',
-      margin: '0 0',
-      padding: '0 0',
+      cursor: "pointer",
+      margin: "0 0",
+      padding: "0 0",
       left: 0,
       top: 0,
       width: 120
@@ -144,7 +144,7 @@ FlatULButton.propTypes = {
 }
 FlatULButton.defaultProps = {
   buttonStyle: {},
-  label: 'Up Load',
+  label: "Up Load",
   onTouchTap: ()=>{console.log("to up load")},
   onChange: (value, file)=>{console.log(value, file)}
 }
@@ -160,7 +160,7 @@ export class BaseULButton extends Component {
 
   constructor(props){
     super(props)
-    this.state = {'state':1}
+    this.state = {"state":1}
 
     this._input = {}
     this.handleButtonTouchTap = this.handleButtonTouchTap.bind(this)
@@ -183,21 +183,21 @@ export class BaseULButton extends Component {
   }
 
   render() {
-    let buttonProps = FilterKeyMerge({}, this.props, ['onTouchTap', 'onChange'])
+    let buttonProps = FilterKeyMerge({}, this.props, ["onTouchTap", "onChange"])
 
     return (
       <span >
         <this.props.buttonComponent  {...buttonProps} onTouchTap={this.handleButtonTouchTap}/>
-        <input ref={(c)=>{this._input = c}} style={{display: 'none'}} type={'file'} onChange={this.handleFileChange}/>
+        <input ref={(c)=>{this._input = c}} style={{display: "none"}} type={"file"} onChange={this.handleFileChange}/>
       </span>
     )
   }
 }
 BaseULButton.propTypes = {
   style: React.PropTypes.object,
-  buttonComponent: React.PropTypes.func.isRequired,
+  buttonComponent: React.PropTypes.func.isRequired
 }
 BaseULButton.defaultProps = {
-  style: {},
+  style: {}
 }
 //style={{width: this.props.style.width}}

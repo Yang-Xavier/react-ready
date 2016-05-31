@@ -5,31 +5,31 @@
  * Email: mephistommm@gmail.com
  * Update: 09.03.2016
  */
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, Redirect, hashHistory} from 'react-router'
+import React from "react"
+import ReactDOM from "react-dom"
+import { Router, Route, IndexRoute, Redirect, hashHistory} from "react-router"
  
-import Colors from 'material-ui/lib/styles/colors'
-import PageCard from './component/card/PageCard.jsx'
-import PlaneString from  './component/units/PlaneString.jsx'
+import {pink500} from "material-ui/styles/colors"
+import PageCard from "./component/card/PageCard.jsx"
+import PlaneString from  "./component/units/PlaneString.jsx"
 
-import {GeekCardFoot} from './component/AuthorAbout.jsx'
+import {GeekCardFoot} from "./component/AuthorAbout.jsx"
 
-let headImage = require('./img/Head.jpg')
+let headImage = require("./img/Head.jpg")
 
 // a glue fucntion to glue django template and React.
 window.ReactInit = function glue(params) {
 
   let __PageCard = (props) => (<PageCard {...props}
-                          title={'Error'}
-                          subtitle={ params.status !== 200 ? params.status.toString() : '' }
+                          title={"Error"}
+                          subtitle={params.string}
                           img={headImage}
                           foot={<GeekCardFoot />}/>)
   let __PlaneString = (props) => (<PlaneString {...props}
                           strings={[params.message]}
                           textStyle={{
-                            color: Colors.pink500,
-                            textShadow: '1px 1px 0 #eee'
+                            color: pink500,
+                            textShadow: "1px 1px 0 #eee"
                           }}
                           scale={2.5}/>)
 
@@ -39,5 +39,5 @@ window.ReactInit = function glue(params) {
         <IndexRoute component={__PlaneString} />
       </Route>
     </Router>,
-    document.getElementById('root'))
+    document.getElementById("root"))
 }

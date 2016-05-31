@@ -1,19 +1,18 @@
-import React, { Component  } from 'react'
+import React, { Component  } from "react"
 
-import AppBar from 'material-ui/lib/app-bar'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import IconButton from 'material-ui/lib/icon-button'
-import MyTheme from '../selfTheme.js'
-import Colors from 'material-ui/lib/styles/colors'
-import LeftNav from 'material-ui/lib/left-nav'
-import FlatButton from 'material-ui/lib/flat-button'
-import NavigationClose from 'material-ui/lib/svg-icons/navigation/close'
-import CardTitle from 'material-ui/lib/card/card-title'
+import AppBar from "material-ui/AppBar"
+import getMuiTheme from "material-ui/styles/getMuiTheme"
+import IconButton from "material-ui/IconButton"
+import MyTheme from "../selfTheme.js"
+import LeftNav from "material-ui/Drawer"
+import FlatButton from "material-ui/FlatButton"
+import NavigationClose from "material-ui/svg-icons/navigation/close"
+import {CardTitle} from "material-ui/Card"
 
-import CreateMenuList ,{HeadMenuListButton} from './MenuList.jsx'
+import CreateMenuList ,{HeadMenuListButton} from "./MenuList.jsx"
 
-import {MergeObjects} from '../lib/util.js'
-import {CloseWindow, hashChange} from '../lib/pageFun.js'
+import {MergeObjects} from "../lib/util.js"
+import {CloseWindow, hashChange} from "../lib/pageFun.js"
 
 export class AppLeftNav extends Component {
 
@@ -22,10 +21,10 @@ export class AppLeftNav extends Component {
     this.state = {open: false}
 
     this.buttonStyle = {
-      position: 'absolute',
+      position: "absolute",
       top: 16,
       left: 16,
-      border: '1px solid white'
+      border: "1px solid white"
     }
 
     this.handleToggle = this.handleToggle.bind(this)
@@ -33,7 +32,7 @@ export class AppLeftNav extends Component {
 
   getChildContext(){
     return {
-      muiTheme: ThemeManager.getMuiTheme(this.props.theme)
+      muiTheme: getMuiTheme(this.props.theme)
     }
   }
 
@@ -57,7 +56,7 @@ export class AppLeftNav extends Component {
           onRequestChange={open => this.setState({open})}
         >
         <CardTitle title={this.props.title} subtitle={this.props.subtitle}
-          titleColor={this.props.theme.palette.primary1Color} style={{margin:'0 0 10px 0'}}/>
+          titleColor={this.props.theme.palette.primary1Color} style={{margin:"0 0 10px 0"}}/>
           {CreateMenuList(this.props.menuList, ()=>this.setState({open: false}))}
         </LeftNav>
         {this.props.children}
@@ -83,7 +82,7 @@ AppLeftNav.defaultProps = {
   subtitle: "subtitle"
 }
 AppLeftNav.childContextTypes = {
-  muiTheme: React.PropTypes.object,
+  muiTheme: React.PropTypes.object
 }
 
 
@@ -101,7 +100,7 @@ export default class App extends Component {
 
   getChildContext(){
     return {
-      muiTheme: ThemeManager.getMuiTheme(this.props.theme)
+      muiTheme: getMuiTheme(this.props.theme)
     }
   }
 
@@ -130,9 +129,9 @@ App.propTypes = {
   theme: React.PropTypes.object
 }
 App.defaultProps = {
-  title: 'Title',
+  title: "Title",
   theme: MyTheme
 }
 App.childContextTypes = {
-  muiTheme: React.PropTypes.object,
+  muiTheme: React.PropTypes.object
 }
