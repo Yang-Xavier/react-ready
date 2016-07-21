@@ -1,5 +1,4 @@
 /* you should put all src file to ./src .
-   the env var DEBUG is true defalut!
    npm install -g webpack webpack-dev-server
    npm install --save-dev \
       webpack webpack-dev-server \
@@ -9,18 +8,24 @@
       react react-dom babel-preset-react \
 
 */
-var join = require('path').join;
-var isDEBUG = !process.env.WEB_PRODUCATION;
-var entry_dir = join(__dirname, './src');
+let join = require('path').join
+let entry_dir = join(__dirname, './src')
+let webpack = require('webpack')
+let node_env = process.env.NODE_ENV
 
-var webpack = require('webpack');
-var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var devFlagPlugin = new webpack.DefinePlugin({
+let uglifyJsPlugin = webpack.optimize.UglifyJsPlugin
+let devFlagPlugin = new webpack.DefinePlugin({
   //You can enable some codes only in development environment with environment flags.
-  __DEV__: JSON.stringify(JSON.parse(isDEBUG))
-});
+  __DEV__: JSON.stringify('value')
+})
+let isDebug = true
 
-var webpackconfig= {
+if(node_env === 'production'){
+  isDebug = false
+}
+
+let webpackconfig= {
+  devtool: isDebug ? 'eval' : '#source-map',
   entry: {
     //name: path
     rootPage: [join(entry_dir, './entry_root.jsx')],
@@ -48,7 +53,7 @@ var webpackconfig= {
 		test: /\.css$/,
 		loader: 'style-loader!css-loader?modules',
 	  },
-	  { //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL; otherwise, it will be transformed into normal URL. 
+	  { //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL otherwise, it will be transformed into normal URL. 
 	    test: /\.(png|jpg)$/,
 		loader: 'url-loader',
 		query: {
@@ -57,22 +62,27 @@ var webpackconfig= {
 	  },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&minetype=application/font-woff"
+        loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg)$/,
-        loader: "file-loader" 
+        loader: 'file-loader' 
       }
     ]
   },
   plugins: [
     new uglifyJsPlugin({
-	  //UglifyJs Plugin will minify output(bundle.js) JS codes.http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-	  compress: {
+      //UglifyJs Plugin will minify output(bundle.js) JS codes.http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+      compress: {
         warnings: false
-	  }
+      }
     }),
-	devFlagPlugin
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(node_env)
+      }
+    }),
+    devFlagPlugin
   ],
   devServer: {
     hot: true,
@@ -83,7 +93,7 @@ var webpackconfig= {
       },
     }
   }
-};
+}
 
 
-module.exports = webpackconfig;
+module.exports = webpackconfig
