@@ -30,7 +30,7 @@ var webpackconfig= {
 	materil: [join(entry_dir,'./entry.jsx')],
   },
   output: {
-    path: join(__dirname, './dist'),
+    path: join(__dirname, './static/dist'),
     publicPath: '/static/dist/', //uri while web set run
 	filename: '[name].js'
   },
